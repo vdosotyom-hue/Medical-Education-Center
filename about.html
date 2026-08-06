@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เกี่ยวกับเรา - ศูนย์แพทยศาสตร์ศึกษาชั้นคลินิก</title>
+    
+    <!-- ฟอนต์ Noto Sans Thai และ Font Awesome -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Noto Sans Thai', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* --- Navbar Styles --- */
+        .navbar {
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .logo-box {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .logo-box img {
+            height: 50px;
+            width: auto;
+        }
+        .logo-box h3 {
+            font-size: 15px;
+            color: #1a2e5a;
+            font-weight: 700;
+            margin: 0;
+        }
+        .logo-box p {
+            font-size: 11px;
+            color: #64748b;
+            margin: 0;
+        }
+        .navbar ul {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+        .navbar a {
+            color: #475569;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .navbar a:hover, .navbar a.active {
+            color: #2563eb;
+        }
+
+        /* --- Hero Section Styles --- */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.3),rgba(0, 0, 0, 0.6)), url('Home.jpg') no-repeat center center/cover;
+            padding: 100px 5%;
+            color: #ffffff;
+            position: relative;
+            text-align: left;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+        .hero-content {
+            max-width: 800px;
+            width: 100%;
+        }
+        .hero-tag {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            display: inline-block;
+            margin-bottom: 20px;
+            backdrop-filter: blur(4px);
+        }
+        .hero h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+        .hero h2 {
+            font-size: 20px;
+            font-weight: 400;
+            margin-bottom: 15px;
+            opacity: 0.95;
+        }
+        .hero p {
+            font-size: 15px;
+            font-weight: 300;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        /* --- About Main Section --- */
+        .about-section {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 60px 20px;
+            flex: 1;
+        }
+
+        /* ประวัติความเป็นมา */
+        .history-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+            margin-bottom: 60px;
+        }
+        .history-text h2 {
+            font-size: 28px;
+            color: #1a2e5a;
+            font-weight: 700;
+            margin-bottom: 20px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        .history-text h2::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 3px;
+            background-color: #ff5722;
+            border-radius: 2px;
+        }
+        .history-text p {
+            font-size: 15px;
+            color: #475569;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+        .history-img {
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            height: 350px;
+            background-color: #cbd5e1;
+        }
+        .history-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* วิสัยทัศน์ & พันธกิจ (Vision & Mission) */
+        .vm-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        .vm-card {
+            background: #ffffff;
+            padding: 40px 30px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+            border: 1px solid #e2e8f0;
+            border-top: 4px solid #1a2e5a;
+            transition: transform 0.2s;
+        }
+        .vm-card:hover {
+            transform: translateY(-5px);
+        }
+        .vm-card.mission {
+            border-top-color: #ff5722;
+        }
+        .vm-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            background: #eff6ff;
+            color: #1a2e5a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .vm-card.mission .vm-icon {
+            background: #fff3e0;
+            color: #ff5722;
+        }
+        .vm-card h3 {
+            font-size: 22px;
+            color: #1a2e5a;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        .vm-card p, .vm-card ul {
+            font-size: 15px;
+            color: #475569;
+            line-height: 1.7;
+        }
+        .vm-card ul {
+            padding-left: 20px;
+        }
+        .vm-card ul li {
+            margin-bottom: 8px;
+        }
+
+        /* ผู้บริหารองค์กร (Executive Team) */
+        .exec-section {
+            text-align: center;
+        }
+        .exec-section h2 {
+            font-size: 28px;
+            color: #1a2e5a;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .exec-subtitle {
+            font-size: 15px;
+            color: #64748b;
+            margin-bottom: 40px;
+        }
+        .exec-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 30px;
+        }
+        .exec-card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 30px 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            border: 1px solid #e2e8f0;
+            transition: transform 0.2s;
+        }
+        .exec-card:hover {
+            transform: translateY(-5px);
+        }
+        .exec-avatar {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            margin: 0 auto 20px auto;
+            overflow: hidden;
+            background-color: #e2e8f0;
+            border: 4px solid #eff6ff;
+        }
+        .exec-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .exec-card h4 {
+            font-size: 17px;
+            color: #1a2e5a;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        .exec-card p {
+            font-size: 13px;
+            color: #ff5722;
+            font-weight: 600;
+        }
+
+        /* --- Footer Styles --- */
+        .footer {
+            background-color: #1e2530;
+            color: #94a3b8;
+            padding: 50px 5% 20px 5%;
+            font-size: 14px;
+            border-top: 4px solid #2563eb;
+            margin-top: auto;
+        }
+        .footer-container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto 40px auto;
+        }
+        .footer-col {
+            flex: 1;
+            min-width: 280px;
+        }
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        .footer-logo img {
+            height: 45px;
+        }
+        .footer-logo h4 {
+            color: #ffffff;
+            font-size: 15px;
+            margin: 0;
+            font-weight: 600;
+        }
+        .footer-logo p {
+            font-size: 11px;
+            margin: 0;
+        }
+        .footer-desc {
+            font-size: 13px;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        .footer-social {
+            display: flex;
+            gap: 10px;
+        }
+        .footer-social a {
+            background: #2e3746;
+            color: #cbd5e1;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: background 0.2s, color 0.2s;
+        }
+        .footer-social a:hover {
+            background: #2563eb;
+            color: #fff;
+        }
+        .footer-col h3 {
+            color: #ffffff;
+            font-size: 16px;
+            margin-bottom: 20px;
+            font-weight: 500;
+            position: relative;
+            padding-bottom: 8px;
+        }
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 30px;
+            height: 2px;
+            background-color: #2563eb;
+        }
+        .footer-col ul {
+            list-style: none;
+        }
+        .footer-col ul li {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            line-height: 1.5;
+        }
+        .footer-col ul li i {
+            color: #2563eb;
+            margin-top: 4px;
+        }
+        .footer-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .footer-links a:hover {
+            color: #ffffff;
+        }
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #2e3746;
+            font-size: 12px;
+            color: #64748b;
+        }
+
+        /* 📱 เพิ่มและปรับปรุงระบบ Responsive สำหรับสมาร์ตโฟนเต็มรูปแบบ */
+@media (max-width: 768px) {
+    /* 1. ปรับ Navbar และโลโก้ให้พอดีจอมือถือ */
+    .navbar {
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px 20px;
+    }
+    .logo-box {
+        flex-direction: row;
+        text-align: left;
+    }
+    .logo-box h3 {
+        font-size: 13px;
+    }
+    .logo-box p {
+        font-size: 10px;
+    }
+    .navbar ul {
+        gap: 12px;
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 100%;
+    }
+    .navbar a {
+        font-size: 13px;
+    }
+
+    /* 2. ปรับ Hero Banner ย่อสเกลตัวอักษรและระยะ Padding */
+    .hero {
+        padding: 60px 20px;
+    }
+    .hero h1 {
+        font-size: 24px;
+    }
+    .hero h2 {
+        font-size: 16px;
+    }
+    .hero p {
+        font-size: 14px;
+    }
+
+    /* 3. จัดระเบียบเนื้อหาประวัติ วิสัยทัศน์ และคณะผู้บริหารเป็นแนวตั้ง */
+    .history-grid, .vm-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+    .history-img {
+        height: 220px;
+    }
+    .vm-card {
+        padding: 25px 20px;
+    }
+    .exec-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    /* 4. ปรับ Footer ให้เรียงลงมาพอดีมือถือ */
+    .footer-container {
+        flex-direction: column;
+        gap: 30px;
+    }
+    .footer-col {
+        min-width: 100%;
+    }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo-box">
+            <img src="logo_mec.png" alt="MEC Logo">
+            <div>
+                <h3>ศูนย์แพทยศาสตร์ศึกษาชั้นคลินิก โรงพยาบาลเจ้าพระยายมราช</h3>
+                <p>Medical Education Center Chaophrayayommarat Hospital</p>
+            </div>
+        </div>
+        <ul>
+            <li><a href="index.html">หน้าแรก</a></li>
+            <li><a href="about.html" class="active">เกี่ยวกับเรา</a></li>
+            <li><a href="service.html">บริการ</a></li>
+            <li><a href="#">ติดต่อ</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Banner -->
+    <section class="hero">
+        <div class="hero-content">
+            <span class="hero-tag">Medical Education Center</span>
+            <h1>เกี่ยวกับศูนย์แพทยศาสตร์ศึกษาชั้นคลินิก</h1>
+            <h2>โรงพยาบาลเจ้าพระยายมราช สุพรรณบุรี</h2>
+            <p>มุ่งมั่นผลิตบุคลากรทางการแพทย์ที่มีคุณภาพ พร้อมส่งเสริมงานวิจัยและการบริการทางวิชาการเพื่อสังคม</p>
+        </div>
+    </section>
+
+    <!-- About Main Section -->
+    <main class="about-section">
+        
+        <!-- ประวัติความเป็นมา -->
+        <div class="history-grid">
+            <div class="history-text">
+                <h2>ประวัติความเป็นมา</h2>
+                <p>ศูนย์แพทยศาสตร์ศึกษาชั้นคลินิก โรงพยาบาลเจ้าพระยายมราช สุพรรณบุรี จัดตั้งขึ้นเพื่อจัดการเรียนการสอนชั้นคลินิกให้แก่นิสิตนักศึกษาแพทย์ ตามที่กระทรวงสาธารณสุขและมหาวิทยาลัยเกษตรศาสตร์ ได้ลงนามบันทึกข้อตกลงความร่วมมือทางวิชาการเพื่อสนับสนุนให้โรงพยาบาลเจ้าพระยายมราช จังหวัดสุพรรณบุรี เป็นโรงพยาบาลหลักในการผลิตแพทย์ ของมหาวิทยาลัยเกษตรศาสตร์ จึงได้มีการจัดตั้งศูนย์แพทยศาสตรศึกษาชั้นคลินิก โรงพยาบาลเจ้าพระยายมราช จังหวัดสุพรรณบุรี</p>
+                <p>ในปี พ.ศ. 2567โรงพยาบาลเจ้าพระยายมราช จังหวัดสุพรรณบุรี เป็นโรงพยาบาลศูนย์ขนาดใหญ่ที่มีศักยภาพ ทั้งทางด้านบุคลากรและทรัพยากรณ์ทางการแพทย์ มีความหลากหลายของผู้ป่วยที่เข้ารับการรักษา เหมาะสมต่อการเรียนรู้ของนิสิต โรงพยาบาลเจ้าพระยายมราช จังหวัดสุพรรณบุรี จึงมีความพร้อมในการทำหน้าที่เป็นโรงพยาบาลร่วมสอนหลักแก่นิสิตแพทย์ ของมหาวิทยาลัยเกษตรศาสตร์</p>
+            </div>
+            <div class="history-img">
+                <img src="about-building.jpg" alt="อาคารศูนย์แพทยศาสตร์ศึกษาชั้นคลินิก">
+            </div>
+        </div>
+
+        <!-- วิสัยทัศน์ และ พันธกิจ -->
+        <div class="vm-grid">
+            <div class="vm-card">
+                <div class="vm-icon"><i class="fa-solid fa-eye"></i></div>
+                <h3>วิสัยทัศน์ (Vision)</h3>
+                <p>เป็นศูนย์แพทยศาสตรศึกษาชั้นคลินิกตามมาตรฐานแพทยสภา โดยเน้นการศึกษาในรูปแบบให้ผู้เรียนสร้างองค์ความรู้ด้วยตนเอง</p>
+            </div>
+            <div class="vm-card mission">
+                <div class="vm-icon"><i class="fa-solid fa-bullseye"></i></div>
+                <h3>พันธกิจ (Mission)</h3>
+                <ul>
+                    <li>1.ผลิตบัณฑิตแพทย์ที่ยึดมั่นในจรรยาบรรณวิชาชีพและความรู้ตามมาตรฐานแพทยสภา</li>
+                    <li>2.สร้างสิ่งแวดล้อมให้เพียบพร้อมด้วยวิชาการ ที่เอื้อให้ผู้เรียนเป็นผู้สร้างองค์ความรู้ด้วยตนเองตามทฤษฎีประกอบสร้างนิยม (Constructivism)อย่างมีความสุข</li>
+                    <li>3.พัฒนาหลักสูตร รูปแบบและผลลัพธ์การเรียนรู้ การวัดและการประเมินผลการศึกษา การประกันคุณภาพให้เป็นไปตามมาตรฐานแพทยสภา</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- ทำเนียบผู้บริหาร -->
+        <div class="exec-section">
+            <h2>คณะผู้บริหาร</h2>
+            <p class="exec-subtitle">ศูนย์แพทยศาสตร์ศึกษาชั้นคลินิก โรงพยาบาลเจ้าพระยายมราช</p>
+            
+            <div class="exec-grid">
+                <div class="exec-card">
+                    <div class="exec-avatar">
+                        <img src="วีรภัทร พาพันธุ์เรือง.jpg" alt="รองผู้อำนวยการฝ่ายวิชาการ">
+                    </div>
+                    <h4>รองผู้อำนวยการฝ่ายวิชาการ</h4>
+                    <p>ศูนย์แพทยศาสตร์ศึกษาชั้นคลินิก</p>
+                </div>
+                <div class="exec-card">
+                    <div class="exec-avatar">
+                        <img src="พญ.ชลธิศ นาคา.jpg" alt="ผู้อำนวยการศูนย์แพทย์">
+                    </div>
+                    <h4>ผู้อำนวยการศูนย์แพทยศาสตร์ฯ</h4>
+                    <p>ศูนย์แพทยศาสตร์ศึกษาชั้นคลินิก</p>
+                </div>
+                <div class="exec-card">
+                    <div class="exec-avatar">
+                        <img src="นพ.ณัฏฐ์ เกียรติอภิวสุ.jpg" alt="รองผู้อำนวยการฝ่ายกิจการนิสิต">
+                    </div>
+                    <h4>รองผู้อำนวยการฝ่ายกิจการนิสิต</h4>
+                    <p>ศูนย์แพทยศาสตร์ศึกษาชั้นคลินิก</p>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-col footer-about">
+                <div class="footer-logo">
+                    <img src="logo_mec.png" alt="MEC Logo">
+                    <div>
+                        <h4>ศูนย์แพทยศาสตร์ศึกษาชั้นคลินิก</h4>
+                        <p>โรงพยาบาลเจ้าพระยายมราช สุพรรณบุรี</p>
+                    </div>
+                </div>
+                <p class="footer-desc">กลุ่มงานฝึกอบรมพัฒนาบุคลากรทางการแพทย์</p>
+                <div class="footer-social">
+                    <a href="https://www.facebook.com/MEC.YRH/" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" title="Line"><i class="fa-brands fa-line"></i></a>
+                    <a href="#" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="#" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="#" title="Website"><i class="fa-solid fa-globe"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-col footer-contact">
+                <h3>ติดต่อเรา</h3>
+                <ul>
+                    <li>
+                        <i class="fa-solid fa-location-dot"></i>
+                        <span>โรงพยาบาลเจ้าพระยายมราช เลขที่ 950 ถ.พระพันวษา ต.ท่าพี่เลี้ยง อ.เมืองสุพรรณบุรี จ.สุพรรณบุรี 72000</span>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-phone"></i>
+                        <span>035-000-000 (สายตรง)</span>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-envelope"></i>
+                        <span>mec.yommarat@gmail.com</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="footer-col footer-links">
+                <h3>ลิงก์ที่เป็นประโยชน์</h3>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fa-solid fa-chevron-right"></i> ข้อมูลโรงพยาบาลเจ้าพระยายมราช</a></li>
+                    <li><a href="#"><i class="fa-solid fa-chevron-right"></i> ข้อมูลศูนย์แพทยศาสตร์</a></li>
+                    <li><a href="#"><i class="fa-solid fa-chevron-right"></i> คู่มือนิสิต/นักศึกษาแพทย์</a></li>
+                    <li><a href="#"><i class="fa-solid fa-chevron-right"></i> คำถามที่พบบ่อย (FAQ)</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2026 ศูนย์แพทยศาสตร์ศึกษาชั้นคลินิก โรงพยาบาลเจ้าพระยายมราช สุพรรณบุรี | สงวนลิขสิทธิ์</p>
+        </div>
+    </footer>
+
+</body>
+</html>

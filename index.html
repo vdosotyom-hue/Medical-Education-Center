@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ข่าวสารและกิจกรรม - ศูนย์แพทยศาสตร์ศึกษาชั้นคลินิก</title>
+    
+    <!-- ฟอนต์ Noto Sans Thai และ Font Awesome ตามธีมหลักของคุณ -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Noto Sans Thai', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* --- Navbar Styles --- */
+        .navbar {
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .logo-box {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .logo-box img {
+            height: 50px;
+            width: auto;
+        }
+        .logo-box h3 {
+            font-size: 15px;
+            color: #1a2e5a;
+            font-weight: 700;
+            margin: 0;
+        }
+        .logo-box p {
+            font-size: 11px;
+            color: #64748b;
+            margin: 0;
+        }
+        .navbar ul {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+        .navbar a {
+            color: #475569;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .navbar a:hover, .navbar a.active {
+            color: #2563eb;
+        }
+
+       /* --- Hero Section Styles (สเปกคล้ายของเดิม สว่าง คมชัด ชิดซ้าย) --- */
+.hero {
+    /* ใช้โทนสี Overlay เดิม ปรับลดความทึบให้เห็นภาพ background ชัดเจน */
+    background: linear-gradient(rgba(26, 46, 90, 0.45), rgba(26, 46, 90, 0.65)), url('IMG_5598.jpg') no-repeat center center/cover;
+    padding: 100px 5%;
+    color: #ffffff;
+    position: relative;
+    text-align: left;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.hero-content {
+    max-width: 800px;
+    width: 100%;
+}
+
+.hero-tag {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    display: inline-block;
+    margin-bottom: 20px;
+    backdrop-filter: blur(4px); /* เพิ่มลูกเล่นมัวจางๆ ให้ดูละมุนขึ้น */
+}
+
+.hero h1 {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    line-height: 1.3;
+}
+
+.hero h2 {
+    font-size: 20px;
+    font-weight: 400;
+    margin-bottom: 15px;
+    opacity: 0.95;
+}
+
+.hero p {
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 1.6;
+    opacity: 0.9;
+}
+
+        /* --- Main News Section --- */
+        .news-section {
+            max-width: 1200px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 50px 20px;
+            flex: 1;
+        }
+
+        /* หัวข้อข่าวสาร NEWS & EVENTS */
+        .news-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 30px;
+        }
+        .news-header-title .tag {
+            color: #ff5722;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 5px;
+        }
+        .news-header-title h2 {
+            font-size: 32px;
+            color: #1a2e5a;
+            font-weight: 700;
+        }
+        .view-all-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #1a2e5a;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+        .view-all-btn i {
+            font-size: 12px;
+            border: 1px solid #cbd5e1;
+            padding: 6px;
+            border-radius: 50%;
+            transition: all 0.2s;
+        }
+        .view-all-btn:hover {
+            color: #2563eb;
+        }
+        .view-all-btn:hover i {
+            border-color: #2563eb;
+            background-color: #eff6ff;
+        }
+
+        /* Layout ตารางข่าวหน้าหลัก ถอดแบบสไตล์จากภาพตัวอย่าง */
+        .news-featured-grid {
+            display: grid;
+            grid-template-columns: 1.6fr 1fr;
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        /* การ์ดข่าวใหญ่ฝั่งซ้าย */
+        .featured-large {
+            background: #f1f5f9;
+            border-radius: 16px;
+            overflow: hidden;
+            display: flex;
+            text-decoration: none;
+            color: inherit;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .featured-large:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+        }
+        .featured-large .img-box {
+            width: 50%;
+            min-height: 280px;
+            background-color: #e2e8f0;
+            overflow: hidden;
+        }
+        .featured-large .img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .featured-large .content-box {
+            width: 50%;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .featured-large h3 {
+            font-size: 18px;
+            color: #1a2e5a;
+            line-height: 1.5;
+            font-weight: 700;
+        }
+        .read-more {
+            color: #1a2e5a;
+            font-size: 14px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 20px;
+        }
+
+        /* ฝั่งขวา การ์ดข่าวย่อย 2 ใบซ้อนกัน */
+        .featured-side-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .side-card {
+            background: #f1f5f9;
+            border-radius: 16px;
+            padding: 15px;
+            display: flex;
+            gap: 15px;
+            text-decoration: none;
+            color: inherit;
+            align-items: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .side-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+        }
+        .side-card .img-box {
+            width: 120px;
+            height: 100px;
+            border-radius: 10px;
+            overflow: hidden;
+            flex-shrink: 0;
+            background-color: #cbd5e1;
+        }
+        .side-card .img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .side-card .content-box {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+        }
+        .side-card h4 {
+            font-size: 14px;
+            color: #1a2e5a;
+            line-height: 1.5;
+            font-weight: 700;
+        }
+
+        /* --- หมวดหมู่ข่าวและข่าวทั่วไปด้านล่าง --- */
+        .category-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 1px solid #e2e8f0;
+            padding-bottom: 15px;
+        }
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #64748b;
+            cursor: pointer;
+            font-family: 'Noto Sans Thai', sans-serif;
+            transition: all 0.2s;
+        }
+        .tab-btn.active, .tab-btn:hover {
+            background-color: #1a2e5a;
+            color: #ffffff;
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        .news-card {
+            background: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+            border: 1px solid #e2e8f0;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.06);
+        }
+        .news-card .card-img {
+            height: 180px;
+            background-color: #cbd5e1;
+            overflow: hidden;
+        }
+        .news-card .card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .news-card .card-body {
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .news-card .date {
+            font-size: 12px;
+            color: #94a3b8;
+            margin-bottom: 8px;
+        }
+        .news-card h3 {
+            font-size: 16px;
+            color: #1a2e5a;
+            line-height: 1.5;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        /* --- Footer Styles --- */
+        .footer {
+            background-color: #1e2530;
+            color: #94a3b8;
+            padding: 50px 5% 20px 5%;
+            font-size: 14px;
+            border-top: 4px solid #2563eb;
+            margin-top: auto;
+        }
+        .footer-container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto 40px auto;
+        }
+        .footer-col {
+            flex: 1;
+            min-width: 280px;
+        }
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        .footer-logo img {
+            height: 45px;
+        }
+        .footer-logo h4 {
+            color: #ffffff;
+            font-size: 15px;
+            margin: 0;
+            font-weight: 600;
+        }
+        .footer-logo p {
+            font-size: 11px;
+            margin: 0;
+        }
+        .footer-desc {
+            font-size: 13px;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        .footer-social {
+            display: flex;
+            gap: 10px;
+        }
+        .footer-social a {
+            background: #2e3746;
+            color: #cbd5e1;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: background 0.2s, color 0.2s;
+        }
+        .footer-social a:hover {
+            background: #2563eb;
+            color: #fff;
+        }
+        .footer-col h3 {
+            color: #ffffff;
+            font-size: 16px;
+            margin-bottom: 20px;
+            font-weight: 500;
+            position: relative;
+            padding-bottom: 8px;
+        }
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 30px;
+            height: 2px;
+            background-color: #2563eb;
+        }
+        .footer-col ul {
+            list-style: none;
+        }
+        .footer-col ul li {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            line-height: 1.5;
+        }
+        .footer-col ul li i {
+            color: #2563eb;
+            margin-top: 4px;
+        }
+        .footer-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .footer-links a:hover {
+            color: #ffffff;
+        }
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #2e3746;
+            font-size: 12px;
+            color: #64748b;
+        }
+/* 📱 เพิ่มและปรับปรุงระบบ Responsive สำหรับสมาร์ตโฟนเต็มรูปแบบ */
+@media (max-width: 768px) {
+    /* 1. ปรับ Navbar และโลโก้ให้พอดีจอมือถือ */
+    .navbar {
+        flex-direction: column;
+        gap: 15px;
+        padding: 15px 20px;
+    }
+    .logo-box {
+        flex-direction: row;
+        text-align: left;
+    }
+    .logo-box h3 {
+        font-size: 13px;
+    }
+    .logo-box p {
+        font-size: 10px;
+    }
+    .navbar ul {
+        gap: 12px;
+        flex-wrap: wrap;
+        justify-content: center;
+        width: 100%;
+    }
+    .navbar a {
+        font-size: 13px;
+    }
+
+    /* 2. ปรับ Hero Banner ย่อสเกลตัวอักษรและระยะ Padding */
+    .hero {
+        padding: 60px 20px;
+    }
+    .hero h1 {
+        font-size: 24px;
+    }
+    .hero h2 {
+        font-size: 16px;
+    }
+    .hero p {
+        font-size: 14px;
+    }
+
+    /* 3. จัดระเบียบเนื้อหาประวัติ วิสัยทัศน์ และคณะผู้บริหารเป็นแนวตั้ง */
+    .history-grid, .vm-grid {
+        grid-template-columns: 1fr;
+        gap: 25px;
+    }
+    .history-img {
+        height: 220px;
+    }
+    .vm-card {
+        padding: 25px 20px;
+    }
+    .exec-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    /* 4. ปรับ Footer ให้เรียงลงมาพอดีมือถือ */
+    .footer-container {
+        flex-direction: column;
+        gap: 30px;
+    }
+    .footer-col {
+        min-width: 100%;
+    }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo-box">
+            <img src="logo_mec.png" alt="MEC Logo">
+            <div>
+                <h3>ศูนย์แพทยศาสตร์ศึกษาชั้นคลินิก โรงพยาบาลเจ้าพระยายมราช</h3>
+                <p>Medical Education Center Chaophrayayommarat Hospital</p>
+            </div>
+        </div>
+        <ul>
+            <li><a href="index.html" class="active">หน้าแรก</a></li>
+            <li><a href="about.html">เกี่ยวกับเรา</a></li>
+            <li><a href="service.html">บริการ</a></li>
+            <li><a href="#">ติดต่อ</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Banner -->
+    <section class="hero">
+        <div class="hero-content">
+            <span class="hero-tag">Medical Education Center</span>
+            <h1>ข่าวสารและกิจกรรมประชาสัมพันธ์</h1>
+            <h2>ศูนย์แพทยศาสตร์ศึกษาชั้นคลินิก โรงพยาบาลเจ้าพระยายมราช</h2>
+            <p>ติดตามข้อมูลข่าวสาร ความเคลื่อนไหว และกิจกรรมการอบรมวิชาการทางการแพทย์อย่างใกล้ชิด</p>
+        </div>
+    </section>
+
+    <!-- Main News Container -->
+    <main class="news-section">
+        
+        <!-- Header ข่าวสารและกิจกรรม -->
+        <div class="news-header">
+            <div class="news-header-title">
+                <span class="tag">News & Events</span>
+                <h2>ข่าวสารและกิจกรรม</h2>
+            </div>
+            <a href="#" class="view-all-btn">ดูทั้งหมด <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+
+        <!-- Featured News Grid (ถอดแบบสไตล์ตรงตามรูปภาพตัวอย่าง) -->
+        <div class="news-featured-grid">
+            
+            <!-- การ์ดข่าวใหญ่ด้านซ้าย -->
+            <a href="#" class="featured-large">
+                <div class="img-box">
+                    <img src="news-highlight.jpg" alt="ข่าวไฮไลต์">
+                </div>
+                <div class="content-box">
+                    <h3>พิธีลงนามบันทึกข้อตกลงความร่วมมือทางวิชาการ ระหว่างมหาวิทยาลัยเกษตรศาสตร์กับสำนักงานสาธารณสุขสุพรรณบุรี</h3>
+                    <div class="read-more">อ่านต่อ <i class="fa-solid fa-arrow-right"></i></div>
+                </div>
+            </a>
+
+            <!-- การ์ดข่าวย่อย 2 อันด้านขวา -->
+            <div class="featured-side-list">
+                
+                <a href="#" class="side-card">
+                    <div class="img-box">
+                        <img src="news-thumb1.jpg" alt="ข่าว 1">
+                    </div>
+                    <div class="content-box">
+                        <h4>กระทรวงสาธารณสุขและมหาวิทยาลัยเกษตรศาสตร์ ได้ลงนามบันทึกข้อตกลงความร่วมมือทางวิชาการเพื่อสนับสนุนให้โรงพยาบาลเจ้าพระยายมราช จังหวัดสุพรรณบุรี เป็นโรงพยาบาลหลักในการผลิตแพทย์</h4>
+                        <div class="read-more" style="font-size: 13px;">อ่านต่อ <i class="fa-solid fa-arrow-right"></i></div>
+                    </div>
+                </a>
+
+                <a href="#" class="side-card">
+                    <div class="img-box">
+                        <img src="news-thumb2.jpg" alt="ข่าว 2">
+                    </div>
+                    <div class="content-box">
+                        <h4>ต่อยอดความร่วมมือทางวิชาการและการวิจัยทางการแพทย์ ร่วมกับสถาบันการศึกษาชั้นนำ</h4>
+                        <div class="read-more" style="font-size: 13px;">อ่านต่อ <i class="fa-solid fa-arrow-right"></i></div>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+
+        <!-- แท็บหมวดหมู่ข่าวเพิ่มเติม -->
+        <div class="category-tabs">
+            <button class="tab-btn active">ทั้งหมด</button>
+            <button class="tab-btn">ข่าววิชาการ/การศึกษา</button>
+            <button class="tab-btn">กิจกรรมสถาบัน</button>
+            <button class="tab-btn">ประกาศ/รับสมัคร</button>
+        </div>
+
+        <!-- รายการข่าวทั่วไปด้านล่าง -->
+        <div class="news-grid">
+            
+            <a href="#" class="news-card">
+                <div class="card-img">
+                    <img src="news-1.jpg" alt="ข่าวสาร">
+                </div>
+                <div class="card-body">
+                    <div>
+                        <div class="date"><i class="fa-regular fa-calendar" style="margin-right: 5px;"></i> 12 มีนาคม 2026</div>
+                        <h3>โครงการซ้อมแผนเผชิญเหตุและปฐมพยาบาลชั้นสูงสำหรับนิสิตแพทย์ชั้นคลินิก</h3>
+                    </div>
+                    <div class="read-more" style="font-size: 13px;">อ่านรายละเอียด <i class="fa-solid fa-arrow-right"></i></div>
+                </div>
+            </a>
+
+            <a href="#" class="news-card">
+                <div class="card-img">
+                    <img src="news-2.jpg" alt="ข่าวสาร">
+                </div>
+                <div class="card-body">
+                    <div>
+                        <div class="date"><i class="fa-regular fa-calendar" style="margin-right: 5px;"></i> 5 มีนาคม 2026</div>
+                        <h3>การบรรยายพิเศษเรื่องนวัตกรรมทางการแพทย์และการบริการสาธารณสุขยุคดิจิทัล</h3>
+                    </div>
+                    <div class="read-more" style="font-size: 13px;">อ่านรายละเอียด <i class="fa-solid fa-arrow-right"></i></div>
+                </div>
+            </a>
+
+            <a href="#" class="news-card">
+                <div class="card-img">
+                    <img src="news-3.jpg" alt="ข่าวสาร">
+                </div>
+                <div class="card-body">
+                    <div>
+                        <div class="date"><i class="fa-regular fa-calendar" style="margin-right: 5px;"></i> 20 กุมภาพันธ์ 2026</div>
+                        <h3>ขอเชิญเข้าร่วมงานประชุมวิชาการประจำปี ศูนย์แพทยศาสตร์ศึกษาชั้นคลินิก</h3>
+                    </div>
+                    <div class="read-more" style="font-size: 13px;">อ่านรายละเอียด <i class="fa-solid fa-arrow-right"></i></div>
+                </div>
+            </a>
+
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-col footer-about">
+                <div class="footer-logo">
+                    <img src="logo_mec.png" alt="MEC Logo">
+                    <div>
+                        <h4>ศูนย์แพทยศาสตร์ศึกษาชั้นคลินิก</h4>
+                        <p>โรงพยาบาลเจ้าพระยายมราช สุพรรณบุรี</p>
+                    </div>
+                </div>
+                <p class="footer-desc">กลุ่มงานฝึกอบรมพัฒนาบุคลากรทางการแพทย์</p>
+                <div class="footer-social">
+                    <a href="https://www.facebook.com/MEC.YRH/" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" title="Line"><i class="fa-brands fa-line"></i></a>
+                    <a href="#" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="#" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="#" title="Website"><i class="fa-solid fa-globe"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-col footer-contact">
+                <h3>ติดต่อเรา</h3>
+                <ul>
+                    <li>
+                        <i class="fa-solid fa-location-dot"></i>
+                        <span>โรงพยาบาลเจ้าพระยายมราช เลขที่ 950 ถ.พระพันวษา ต.ท่าพี่เลี้ยง อ.เมืองสุพรรณบุรี จ.สุพรรณบุรี 72000</span>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-phone"></i>
+                        <span>035-000-000 (สายตรง)</span>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-envelope"></i>
+                        <span>mec.yommarat@gmail.com</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="footer-col footer-links">
+                <h3>ลิงก์ที่เป็นประโยชน์</h3>
+                <ul class="footer-links">
+                    <li><a href="#"><i class="fa-solid fa-chevron-right"></i> ข้อมูลโรงพยาบาลเจ้าพระยายมราช</a></li>
+                    <li><a href="#"><i class="fa-solid fa-chevron-right"></i> ข้อมูลศูนย์แพทยศาสตร์</a></li>
+                    <li><a href="#"><i class="fa-solid fa-chevron-right"></i> คู่มือนิสิต/นักศึกษาแพทย์</a></li>
+                    <li><a href="#"><i class="fa-solid fa-chevron-right"></i> คำถามที่พบบ่อย (FAQ)</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2026 ศูนย์แพทยศาสตร์ศึกษาชั้นคลินิก โรงพยาบาลเจ้าพระยายมราช สุพรรณบุรี | สงวนลิขสิทธิ์</p>
+        </div>
+    </footer>
+
+</body>
+</html>
