@@ -229,9 +229,10 @@
             margin-bottom: 8px;
         }
 
-        /* ผู้บริหารองค์กร (Executive Team) */
+        /* ผู้บริหารองค์กร & บุคลากร (Executive & Support Team) */
         .exec-section {
             text-align: center;
+            margin-bottom: 50px;
         }
         .exec-section h2 {
             font-size: 28px;
@@ -244,30 +245,57 @@
             color: #64748b;
             margin-bottom: 40px;
         }
-        .exec-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 30px;
+
+        /* Layout แถวผู้บริหารตามรูปภาพ */
+        .exec-row {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
         }
+
         .exec-card {
             background: #ffffff;
             border-radius: 16px;
-            padding: 30px 20px;
+            padding: 25px 15px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.03);
             border: 1px solid #e2e8f0;
             transition: transform 0.2s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
+        
+        .exec-card.row-3 {
+            width: calc(33.33% - 20px);
+            min-width: 250px;
+            max-width: 320px;
+        }
+
+        .exec-card.row-4 {
+            width: calc(25% - 20px);
+            min-width: 230px;
+            max-width: 270px;
+        }
+
+        .exec-card.row-2 {
+            width: calc(33.33% - 20px);
+            min-width: 250px;
+            max-width: 320px;
+        }
+
         .exec-card:hover {
             transform: translateY(-5px);
         }
         .exec-avatar {
             width: 140px;
-            height: 140px;
-            border-radius: 50%;
-            margin: 0 auto 20px auto;
+            height: 175px;
+            border-radius: 12px;
+            margin: 0 auto 15px auto;
             overflow: hidden;
             background-color: #e2e8f0;
-            border: 4px solid #eff6ff;
+            border: 3px solid #eff6ff;
         }
         .exec-avatar img {
             width: 100%;
@@ -275,15 +303,16 @@
             object-fit: cover;
         }
         .exec-card h4 {
-            font-size: 17px;
+            font-size: 16px;
             color: #1a2e5a;
             font-weight: 700;
-            margin-bottom: 5px;
+            margin-bottom: 6px;
         }
         .exec-card p {
             font-size: 13px;
             color: #ff5722;
-            font-weight: 600;
+            font-weight: 500;
+            line-height: 1.4;
         }
 
         /* --- Footer Styles --- */
@@ -398,72 +427,69 @@
             color: #64748b;
         }
 
-        /* 📱 เพิ่มและปรับปรุงระบบ Responsive สำหรับสมาร์ตโฟนเต็มรูปแบบ */
-@media (max-width: 768px) {
-    /* 1. ปรับ Navbar และโลโก้ให้พอดีจอมือถือ */
-    .navbar {
-        flex-direction: column;
-        gap: 15px;
-        padding: 15px 20px;
-    }
-    .logo-box {
-        flex-direction: row;
-        text-align: left;
-    }
-    .logo-box h3 {
-        font-size: 13px;
-    }
-    .logo-box p {
-        font-size: 10px;
-    }
-    .navbar ul {
-        gap: 12px;
-        flex-wrap: wrap;
-        justify-content: center;
-        width: 100%;
-    }
-    .navbar a {
-        font-size: 13px;
-    }
+        /* 📱 Responsive สำหรับสมาร์ตโฟน */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 15px;
+                padding: 15px 20px;
+            }
+            .logo-box {
+                flex-direction: row;
+                text-align: left;
+            }
+            .logo-box h3 {
+                font-size: 13px;
+            }
+            .logo-box p {
+                font-size: 10px;
+            }
+            .navbar ul {
+                gap: 12px;
+                flex-wrap: wrap;
+                justify-content: center;
+                width: 100%;
+            }
+            .navbar a {
+                font-size: 13px;
+            }
 
-    /* 2. ปรับ Hero Banner ย่อสเกลตัวอักษรและระยะ Padding */
-    .hero {
-        padding: 60px 20px;
-    }
-    .hero h1 {
-        font-size: 24px;
-    }
-    .hero h2 {
-        font-size: 16px;
-    }
-    .hero p {
-        font-size: 14px;
-    }
+            .hero {
+                padding: 60px 20px;
+            }
+            .hero h1 {
+                font-size: 24px;
+            }
+            .hero h2 {
+                font-size: 16px;
+            }
+            .hero p {
+                font-size: 14px;
+            }
 
-    /* 3. จัดระเบียบเนื้อหาประวัติ วิสัยทัศน์ และคณะผู้บริหารเป็นแนวตั้ง */
-    .history-grid, .vm-grid {
-        grid-template-columns: 1fr;
-        gap: 25px;
-    }
-    .history-img {
-        height: 220px;
-    }
-    .vm-card {
-        padding: 25px 20px;
-    }
-    .exec-grid {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
+            .history-grid, .vm-grid {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+            .history-img {
+                height: 220px;
+            }
+            .vm-card {
+                padding: 25px 20px;
+            }
 
-    /* 4. ปรับ Footer ให้เรียงลงมาพอดีมือถือ */
-    .footer-container {
-        flex-direction: column;
-        gap: 30px;
-    }
-    .footer-col {
-        min-width: 100%;
-    }
+            .exec-card.row-3, .exec-card.row-4, .exec-card.row-2 {
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .footer-container {
+                flex-direction: column;
+                gap: 30px;
+            }
+            .footer-col {
+                min-width: 100%;
+            }
         }
     </style>
 </head>
@@ -504,7 +530,7 @@
             <div class="history-text">
                 <h2>ประวัติความเป็นมา</h2>
                 <p>ศูนย์แพทยศาสตร์ศึกษาชั้นคลินิก โรงพยาบาลเจ้าพระยายมราช สุพรรณบุรี จัดตั้งขึ้นเพื่อจัดการเรียนการสอนชั้นคลินิกให้แก่นิสิตนักศึกษาแพทย์ ตามที่กระทรวงสาธารณสุขและมหาวิทยาลัยเกษตรศาสตร์ ได้ลงนามบันทึกข้อตกลงความร่วมมือทางวิชาการเพื่อสนับสนุนให้โรงพยาบาลเจ้าพระยายมราช จังหวัดสุพรรณบุรี เป็นโรงพยาบาลหลักในการผลิตแพทย์ ของมหาวิทยาลัยเกษตรศาสตร์ จึงได้มีการจัดตั้งศูนย์แพทยศาสตรศึกษาชั้นคลินิก โรงพยาบาลเจ้าพระยายมราช จังหวัดสุพรรณบุรี</p>
-                <p>ในปี พ.ศ. 2567โรงพยาบาลเจ้าพระยายมราช จังหวัดสุพรรณบุรี เป็นโรงพยาบาลศูนย์ขนาดใหญ่ที่มีศักยภาพ ทั้งทางด้านบุคลากรและทรัพยากรณ์ทางการแพทย์ มีความหลากหลายของผู้ป่วยที่เข้ารับการรักษา เหมาะสมต่อการเรียนรู้ของนิสิต โรงพยาบาลเจ้าพระยายมราช จังหวัดสุพรรณบุรี จึงมีความพร้อมในการทำหน้าที่เป็นโรงพยาบาลร่วมสอนหลักแก่นิสิตแพทย์ ของมหาวิทยาลัยเกษตรศาสตร์</p>
+                <p>ในปี พ.ศ. 2567 โรงพยาบาลเจ้าพระยายมราช จังหวัดสุพรรณบุรี เป็นโรงพยาบาลศูนย์ขนาดใหญ่ที่มีศักยภาพ ทั้งทางด้านบุคลากรและทรัพยากรทางการแพทย์ มีความหลากหลายของผู้ป่วยที่เข้ารับการรักษา เหมาะสมต่อการเรียนรู้ของนิสิต โรงพยาบาลเจ้าพระยายมราช จังหวัดสุพรรณบุรี จึงมีความพร้อมในการทำหน้าที่เป็นโรงพยาบาลร่วมสอนหลักแก่นิสิตแพทย์ ของมหาวิทยาลัยเกษตรศาสตร์</p>
             </div>
             <div class="history-img">
                 <img src="about-building.jpg" alt="อาคารศูนย์แพทยศาสตร์ศึกษาชั้นคลินิก">
@@ -522,42 +548,104 @@
                 <div class="vm-icon"><i class="fa-solid fa-bullseye"></i></div>
                 <h3>พันธกิจ (Mission)</h3>
                 <ul>
-                    <li>1.ผลิตบัณฑิตแพทย์ที่ยึดมั่นในจรรยาบรรณวิชาชีพและความรู้ตามมาตรฐานแพทยสภา</li>
-                    <li>2.สร้างสิ่งแวดล้อมให้เพียบพร้อมด้วยวิชาการ ที่เอื้อให้ผู้เรียนเป็นผู้สร้างองค์ความรู้ด้วยตนเองตามทฤษฎีประกอบสร้างนิยม (Constructivism)อย่างมีความสุข</li>
-                    <li>3.พัฒนาหลักสูตร รูปแบบและผลลัพธ์การเรียนรู้ การวัดและการประเมินผลการศึกษา การประกันคุณภาพให้เป็นไปตามมาตรฐานแพทยสภา</li>
+                    <li>1. ผลิตบัณฑิตแพทย์ที่ยึดมั่นในจรรยาบรรณวิชาชีพและความรู้ตามมาตรฐานแพทยสภา</li>
+                    <li>2. สร้างสิ่งแวดล้อมให้เพียบพร้อมด้วยวิชาการ ที่เอื้อให้ผู้เรียนเป็นผู้สร้างองค์ความรู้ด้วยตนเองตามทฤษฎีประกอบสร้างนิยม (Constructivism) อย่างมีความสุข</li>
+                    <li>3. พัฒนาหลักสูตร รูปแบบและผลลัพธ์การเรียนรู้ การวัดและการประเมินผลการศึกษา การประกันคุณภาพให้เป็นไปตามมาตรฐานแพทยสภา</li>
                 </ul>
             </div>
         </div>
 
         <!-- ทำเนียบผู้บริหาร -->
-        <div class="exec-section">
+        <section class="exec-section">
             <h2>คณะผู้บริหาร</h2>
             <p class="exec-subtitle">ศูนย์แพทยศาสตร์ศึกษาชั้นคลินิก โรงพยาบาลเจ้าพระยายมราช</p>
             
-            <div class="exec-grid">
-                <div class="exec-card">
+            <!-- แถวที่ 1: ผู้บริหารระดับสูง 3 ท่าน -->
+            <div class="exec-row">
+                <div class="exec-card row-3">
                     <div class="exec-avatar">
-                        <img src="V.JPG" alt="รองผู้อำนวยการฝ่ายวิชาการ">
+                        <img src="PCH.jpg" alt="พญ.พัชรพรรณ ศรีขวัญเจริญ">
                     </div>
-                    <h4>วีรภัทร พาพันธุ์เรือง</h4>
-                    <p>รองผู้อำนวยการฝ่ายวิชาการ</p>
+                    <h4>พญ.พัชรพรรณ ศรีขวัญเจริญ</h4>
+                    <p>รองผู้อำนวยการศูนย์แพทย์ฯ<br>ด้านวัดและประเมินผล</p>
                 </div>
-                <div class="exec-card">
+
+                <div class="exec-card row-3">
                     <div class="exec-avatar">
-                        <img src="P.JPG" alt="ผู้อำนวยการศูนย์แพทย์">
+                        <img src="P.JPG" alt="พญ.ชลธิศ นาคา">
                     </div>
                     <h4>พญ.ชลธิศ นาคา</h4>
                     <p>ผู้อำนวยการศูนย์แพทยศาสตร์ศึกษาชั้นคลินิก</p>
                 </div>
-                <div class="exec-card">
+
+                <div class="exec-card row-3">
                     <div class="exec-avatar">
-                        <img src="นพ.ณัฏฐ์ เกียรติอภิวสุ.jpg" alt="รองผู้อำนวยการฝ่ายกิจการนิสิต">
+                        <img src="K.jpg" alt="นพ.ก้าวหน้า สุขสุขะโน">
                     </div>
-                    <h4>นพ.ณัฏฐ์ เกียรติอภิวสุ</h4>
-                    <p>รองผู้อำนวยการฝ่ายกิจการนิสิต</p>
+                    <h4>นพ.ก้าวหน้า สุขสุขะโน</h4>
+                    <p>รองผู้อำนวยการศูนย์แพทย์ฯ ด้านประกันคุณภาพการศึกษาและเทคโนโลยีสารสนเทศ</p>
                 </div>
             </div>
-        </div>
+
+            <!-- แถวที่ 2: รองผู้อำนวยการ 4 ท่าน -->
+            <div class="exec-row">
+                <div class="exec-card row-4">
+                    <div class="exec-avatar">
+                        <img src="V.JPG" alt="นพ.วีรภัทร พาพันธุ์เรือง">
+                    </div>
+                    <h4>นพ.วีรภัทร พาพันธุ์เรือง</h4>
+                    <p>รองผู้อำนวยการศูนย์แพทย์ฯ<br>ด้านวิชาการ</p>
+                </div>
+
+                <div class="exec-card row-4">
+                    <div class="exec-avatar">
+                        <img src="R.jpg" alt="พญ.รติกร อนุสรทนาวัฒน์">
+                    </div>
+                    <h4>พญ.รติกร อนุสรทนาวัฒน์</h4>
+                    <p>รองผู้อำนวยการศูนย์แพทย์ฯ<br>ด้านงานวิจัย</p>
+                </div>
+
+                <div class="exec-card row-4">
+                    <div class="exec-avatar">
+                        <img src="นพ.ณัฏฐ์ เกียรติอภิวสุ.jpg" alt="นพ.ณัฏฐ์ เกียรติอภิวสุ">
+                    </div>
+                    <h4>นพ.ณัฏฐ์ เกียรติอภิวสุ</h4>
+                    <p>รองผู้อำนวยการศูนย์แพทย์ฯ<br>ด้านกิจการนิสิต</p>
+                </div>
+
+                <div class="exec-card row-4">
+                    <div class="exec-avatar">
+                        <img src="VR.jpg" alt="พญ.วรางคณา ชัยสงคราม">
+                    </div>
+                    <h4>พญ.วรางคณา ชัยสงคราม</h4>
+                    <p>รองผู้อำนวยการศูนย์แพทย์ฯ<br>ด้านพัฒนาอาจารย์และบุคลากร</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- บุคลากรสายสนับสนุน -->
+        <section class="exec-section">
+            <h2>บุคลากรสายสนับสนุน</h2>
+            <p class="exec-subtitle">ศูนย์แพทยศาสตร์ศึกษาชั้นคลินิก โรงพยาบาลเจ้าพระยายมราช</p>
+            
+            <div class="exec-row">
+                <div class="exec-card row-2">
+                    <div class="exec-avatar">
+                        <img src="X.png" alt="บุคลากรสายสนับสนุน 1">
+                    </div>
+                    <h4>อมรรัตน์ แก้วโกมล</h4>
+                    <p>นักวิชาการศึกษา</p>
+                </div>
+
+                <div class="exec-card row-2">
+                    <div class="exec-avatar">
+                        <img src="T.jpg" alt="บุคลากรสายสนับสนุน 2">
+                    </div>
+                    <h4>ทิภารัตน์ เกิดการบุญ</h4>
+                    <p>เจ้าหน้าที่บริหารงานทั่วไป</p>
+                </div>
+            </div>
+        </section>
 
     </main>
 
