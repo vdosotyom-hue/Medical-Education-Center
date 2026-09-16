@@ -246,7 +246,7 @@
             margin-bottom: 40px;
         }
 
-        /* Layout แถวผู้บริหารตามรูปภาพ */
+        /* Layout แถวผู้บริหาร */
         .exec-row {
             display: flex;
             justify-content: center;
@@ -261,7 +261,7 @@
             padding: 25px 15px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.03);
             border: 1px solid #e2e8f0;
-            transition: transform 0.2s;
+            transition: transform 0.2s, box-shadow 0.2s;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -288,6 +288,27 @@
         .exec-card:hover {
             transform: translateY(-5px);
         }
+
+        /* การจัดลำดับและความเด่นของ ผอ. บนคอมพิวเตอร์ */
+        .exec-card.order-first {
+            order: 1;
+        }
+
+        .exec-card.leader-card {
+            order: 2;
+            transform: translateY(-12px); /* ลอยสูงขึ้นกว่า 2 คนข้างๆ */
+            border-color: #bfdbfe;
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.08);
+        }
+
+        .exec-card.leader-card:hover {
+            transform: translateY(-17px);
+        }
+
+        .exec-card.order-last {
+            order: 3;
+        }
+
         .exec-avatar {
             width: 140px;
             height: 175px;
@@ -483,6 +504,18 @@
                 max-width: 100%;
             }
 
+            /* บนมือถือ: ให้ ผอ. ขึ้นเป็นอันดับที่ 1 */
+            .exec-card.leader-card {
+                order: -1 !important;
+                transform: none; /* คืนตำแหน่งปกติในแนวดิ่ง */
+            }
+            .exec-card.order-first {
+                order: 2 !important;
+            }
+            .exec-card.order-last {
+                order: 3 !important;
+            }
+
             .footer-container {
                 flex-direction: column;
                 gap: 30px;
@@ -562,7 +595,7 @@
             
             <!-- แถวที่ 1: ผู้บริหารระดับสูง 3 ท่าน -->
             <div class="exec-row">
-                <div class="exec-card row-3">
+                <div class="exec-card row-3 order-first">
                     <div class="exec-avatar">
                         <img src="PCH.jpg" alt="พญ.พัชรพรรณ ศรีขวัญเจริญ">
                     </div>
@@ -570,7 +603,7 @@
                     <p>รองผู้อำนวยการศูนย์แพทย์ฯ<br>ด้านวัดและประเมินผล</p>
                 </div>
 
-                <div class="exec-card row-3">
+                <div class="exec-card row-3 leader-card">
                     <div class="exec-avatar">
                         <img src="P.JPG" alt="พญ.ชลธิศ นาคา">
                     </div>
@@ -578,7 +611,7 @@
                     <p>ผู้อำนวยการศูนย์แพทยศาสตร์ศึกษาชั้นคลินิก</p>
                 </div>
 
-                <div class="exec-card row-3">
+                <div class="exec-card row-3 order-last">
                     <div class="exec-avatar">
                         <img src="K.jpg" alt="นพ.ก้าวหน้า สุขสุขะโน">
                     </div>
