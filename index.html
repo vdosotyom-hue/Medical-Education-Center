@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ข่าวสารและกิจกรรม - ศูนย์แพทยศาสตร์ศึกษาชั้นคลินิก</title>
     
-    <!-- ฟอนต์ Noto Sans Thai และ Font Awesome ตามธีมหลักของคุณ -->
+    <!-- ฟอนต์ Noto Sans Thai และ Font Awesome -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -75,9 +75,9 @@
             color: #2563eb;
         }
 
-        /* --- Hero Section Styles (สเปกคล้ายของเดิม สว่าง คมชัด ชิดซ้าย) --- */
+        /* --- Hero Section Styles --- */
         .hero {
-            background: linear-gradient(rgba(26, 46, 90, 0.45), rgba(26, 46, 90, 0.65)), url('IMG_5598.JPG') no-repeat center center/cover;
+            background: linear-gradient(rgba(26, 46, 90, 0.45), rgba(26, 46, 90, 0.65)), url('IMG_5598.jpg') no-repeat center center/cover;
             padding: 100px 5%;
             color: #ffffff;
             position: relative;
@@ -134,7 +134,6 @@
             flex: 1;
         }
 
-        /* หัวข้อข่าวสาร NEWS & EVENTS */
         .news-header {
             display: flex;
             justify-content: space-between;
@@ -189,7 +188,6 @@
             margin-bottom: 40px;
         }
 
-        /* การ์ดข่าวใหญ่ฝั่งซ้าย */
         .featured-large {
             background: #f1f5f9;
             border-radius: 16px;
@@ -239,7 +237,6 @@
             margin-top: 20px;
         }
 
-        /* ฝั่งขวา การ์ดข่าวย่อย 2 ใบซ้อนกัน */
         .featured-side-list {
             display: flex;
             flex-direction: column;
@@ -289,7 +286,7 @@
             font-weight: 700;
         }
 
-        /* --- หมวดหมู่ข่าวและข่าวทั่วไปด้านล่าง --- */
+        /* --- หมวดหมู่ข่าวและข่าวทั่วไป --- */
         .category-tabs {
             display: flex;
             gap: 10px;
@@ -486,7 +483,7 @@
             color: #64748b;
         }
 
-        /* 📱 ปรับปรุง Responsive สำหรับสมาร์ตโฟน (แก้จุดโครงสร้างเพี้ยน) */
+        /* 📱 Responsive สำหรับสมาร์ตโฟน */
         @media (max-width: 768px) {
             .navbar {
                 flex-direction: column;
@@ -533,7 +530,7 @@
                 font-size: 24px;
             }
 
-            /* แก้จุดที่ทำให้หน้าพัง: ปรับตารางข่าวใหญ่ให้เรียงลงมาเป็นแนวตั้ง */
+            /* แปลงตารางข่าวหลักเป็นแถวเดียวในจอมือถือ */
             .news-featured-grid {
                 grid-template-columns: 1fr;
                 gap: 20px;
@@ -618,97 +615,26 @@
                 <span class="tag">News & Events</span>
                 <h2>ข่าวสารและกิจกรรม</h2>
             </div>
-            <a href="#" class="view-all-btn">ดูทั้งหมด <i class="fa-solid fa-arrow-right"></i></a>
+            <a href="javascript:void(0)" onclick="filterNews('ทั้งหมด', document.querySelector('.tab-btn'))" class="view-all-btn">ดูทั้งหมด <i class="fa-solid fa-arrow-right"></i></a>
         </div>
 
-        <!-- Featured News Grid (ดึงข้อมูลจากชีตอัตโนมัติ) -->
+        <!-- Featured News Grid (จะถูกโหลดอัตโนมัติจากชีต) -->
         <div class="news-featured-grid" id="featuredGrid">
-            
-            <!-- การ์ดข่าวใหญ่ด้านซ้าย (สำรอง) -->
-            <a href="#" class="featured-large">
-                <div class="img-box">
-                    <img src="news-highlight.jpg" alt="ข่าวไฮไลต์">
-                </div>
-                <div class="content-box">
-                    <h3>พิธีลงนามบันทึกข้อตกลงความร่วมมือทางวิชาการ ระหว่างมหาวิทยาลัยเกษตรศาสตร์กับสำนักงานสาธารณสุขสุพรรณบุรี</h3>
-                    <div class="read-more">อ่านต่อ <i class="fa-solid fa-arrow-right"></i></div>
-                </div>
-            </a>
-
-            <!-- การ์ดข่าวย่อย 2 อันด้านขวา (สำรอง) -->
-            <div class="featured-side-list">
-                <a href="#" class="side-card">
-                    <div class="img-box">
-                        <img src="news-thumb1.jpg" alt="ข่าว 1">
-                    </div>
-                    <div class="content-box">
-                        <h4>กระทรวงสาธารณสุขและมหาวิทยาลัยเกษตรศาสตร์ ได้ลงนามบันทึกข้อตกลงความร่วมมือทางวิชาการเพื่อสนับสนุนให้โรงพยาบาลเจ้าพระยายมราช จังหวัดสุพรรณบุรี เป็นโรงพยาบาลหลักในการผลิตแพทย์</h4>
-                        <div class="read-more" style="font-size: 13px;">อ่านต่อ <i class="fa-solid fa-arrow-right"></i></div>
-                    </div>
-                </a>
-
-                <a href="#" class="side-card">
-                    <div class="img-box">
-                        <img src="news-thumb2.jpg" alt="ข่าว 2">
-                    </div>
-                    <div class="content-box">
-                        <h4>ต่อยอดความร่วมมือทางวิชาการและการวิจัยทางการแพทย์ ร่วมกับสถาบันการศึกษาชั้นนำ</h4>
-                        <div class="read-more" style="font-size: 13px;">อ่านต่อ <i class="fa-solid fa-arrow-right"></i></div>
-                    </div>
-                </a>
+            <div style="padding: 30px; text-align: center; color: #64748b; grid-column: 1 / -1;">
+                กำลังโหลดข้อมูลข่าวสาร...
             </div>
-
         </div>
 
-        <!-- แท็บหมวดหมู่ข่าว (ตามโค้ดเดิม) -->
+        <!-- แท็บหมวดหมู่ข่าว -->
         <div class="category-tabs">
             <button class="tab-btn active" onclick="filterNews('ทั้งหมด', this)">ทั้งหมด</button>
+            <button class="tab-btn" onclick="filterNews('ข่าววิชาการ/การศึกษา', this)">ข่าววิชาการ/การศึกษา</button>
+            <button class="tab-btn" onclick="filterNews('กิจกรรมสถาบัน', this)">กิจกรรมสถาบัน</button>
             <button class="tab-btn" onclick="filterNews('ประกาศ/รับสมัคร', this)">ประกาศ/รับสมัคร</button>
         </div>
 
         <!-- รายการข่าวทั่วไปด้านล่าง -->
-        <div class="news-grid" id="normalGrid">
-            
-            <a href="#" class="news-card">
-                <div class="card-img">
-                    <img src="news-1.jpg" alt="ข่าวสาร">
-                </div>
-                <div class="card-body">
-                    <div>
-                        <div class="date"><i class="fa-regular fa-calendar" style="margin-right: 5px;"></i> 12 มีนาคม 2026</div>
-                        <h3>โครงการซ้อมแผนเผชิญเหตุและปฐมพยาบาลชั้นสูงสำหรับนิสิตแพทย์ชั้นคลินิก</h3>
-                    </div>
-                    <div class="read-more" style="font-size: 13px;">อ่านรายละเอียด <i class="fa-solid fa-arrow-right"></i></div>
-                </div>
-            </a>
-
-            <a href="#" class="news-card">
-                <div class="card-img">
-                    <img src="news-2.jpg" alt="ข่าวสาร">
-                </div>
-                <div class="card-body">
-                    <div>
-                        <div class="date"><i class="fa-regular fa-calendar" style="margin-right: 5px;"></i> 5 มีนาคม 2026</div>
-                        <h3>การบรรยายพิเศษเรื่องนวัตกรรมทางการแพทย์และการบริการสาธารณสุขยุคดิจิทัล</h3>
-                    </div>
-                    <div class="read-more" style="font-size: 13px;">อ่านรายละเอียด <i class="fa-solid fa-arrow-right"></i></div>
-                </div>
-            </a>
-
-            <a href="#" class="news-card">
-                <div class="card-img">
-                    <img src="news-3.jpg" alt="ข่าวสาร">
-                </div>
-                <div class="card-body">
-                    <div>
-                        <div class="date"><i class="fa-regular fa-calendar" style="margin-right: 5px;"></i> 20 กุมภาพันธ์ 2026</div>
-                        <h3>ขอเชิญเข้าร่วมงานประชุมวิชาการประจำปี ศูนย์แพทยศาสตร์ศึกษาชั้นคลินิก</h3>
-                    </div>
-                    <div class="read-more" style="font-size: 13px;">อ่านรายละเอียด <i class="fa-solid fa-arrow-right"></i></div>
-                </div>
-            </a>
-
-        </div>
+        <div class="news-grid" id="normalGrid"></div>
 
     </main>
 
@@ -770,17 +696,12 @@
 
     <!-- Script สำหรับดึงข้อมูลจาก Google Sheets Web App -->
     <script>
-        // นำ Web App URL ที่ได้จากการ Deploy ใน Apps Script มาวางแทนที่ตรงนี้
-        const SHEET_API_URL = 'YOUR_APPS_SCRIPT_WEB_APP_URL';
+        // Web App URL ของคุณ Time
+        const SHEET_API_URL = 'https://script.google.com/macros/s/AKfycbya5OmIKF68Ywob89ulO-SYKGS5Fbjq3ArDFdnAfXOpmjdQEBOp7PGlJoVsZGaD7UyBwg/exec';
 
         let currentNewsData = [];
 
         async function loadNews() {
-            // ถ้ายังไม่ได้ใส่ URL ให้ใช้การแสดงผลเดิมตามโค้ด HTML
-            if (!SHEET_API_URL || SHEET_API_URL === 'YOUR_APPS_SCRIPT_WEB_APP_URL') {
-                return;
-            }
-
             try {
                 const res = await fetch(SHEET_API_URL);
                 currentNewsData = await res.json();
@@ -791,6 +712,7 @@
                 }
             } catch (err) {
                 console.error("ดึงข้อมูลจาก Google Sheets ไม่สำเร็จ:", err);
+                document.getElementById('featuredGrid').innerHTML = '<p style="color:#ef4444; grid-column:1/-1; text-align:center;">ไม่สามารถเชื่อมต่อฐานข้อมูลข่าวได้</p>';
             }
         }
 
@@ -806,7 +728,7 @@
                 sideHtml += `
                     <a href="${item.link_url || '#'}" class="side-card">
                         <div class="img-box">
-                            <img src="${item.image_url}" alt="${item.title}">
+                            <img src="${item.image_url}" alt="${item.title}" onerror="this.src='news-thumb1.jpg'">
                         </div>
                         <div class="content-box">
                             <h4>${item.title}</h4>
@@ -819,7 +741,7 @@
             container.innerHTML = `
                 <a href="${main.link_url || '#'}" class="featured-large">
                     <div class="img-box">
-                        <img src="${main.image_url}" alt="${main.title}">
+                        <img src="${main.image_url}" alt="${main.title}" onerror="this.src='news-highlight.jpg'">
                     </div>
                     <div class="content-box">
                         <h3>${main.title}</h3>
@@ -836,14 +758,17 @@
             const container = document.getElementById('normalGrid');
             const normalList = newsList.filter(n => n.type === 'normal');
 
-            if (normalList.length === 0) return;
+            if (normalList.length === 0) {
+                container.innerHTML = '<p style="color:#94a3b8; grid-column: 1 / -1; text-align: center; padding: 20px;">ยังไม่มีรายการข่าวในหมวดนี้</p>';
+                return;
+            }
 
             container.innerHTML = '';
             normalList.forEach(item => {
                 container.innerHTML += `
                     <a href="${item.link_url || '#'}" class="news-card">
                         <div class="card-img">
-                            <img src="${item.image_url}" alt="${item.title}">
+                            <img src="${item.image_url}" alt="${item.title}" onerror="this.src='news-1.jpg'">
                         </div>
                         <div class="card-body">
                             <div>
