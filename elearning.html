@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>คลังความรู้และสื่อการเรียนรู้ - ศูนย์แพทยศาสตร์ศึกษาชั้นคลินิก</title>
+    
+    <!-- ฟอนต์ Noto Sans Thai, Prompt และ Font Awesome -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&family=Prompt:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS (CDN) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            navy: '#1a2e5a',
+                            blue: '#2563eb',
+                            orange: '#ff5722',
+                            dark: '#0a0f1d',
+                            panel: '#111827'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Noto Sans Thai', 'sans-serif'],
+                        prompt: ['Prompt', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Noto Sans Thai', sans-serif;
+            background-color: #0a0f1d; /* โทนสีเข้ม Dark Theme */
+            color: #e2e8f0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* --- Navbar Styles ถอดแบบจากระบบเดิม เมนูสีเทาเท่ากันทั้งหมด --- */
+        .navbar {
+            background-color: #ffffff;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid #1a2e5a;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .logo-box {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .logo-box img {
+            height: 50px;
+            width: auto;
+        }
+        .logo-box h3 {
+            font-size: 15px;
+            color: #1a2e5a;
+            font-weight: 700;
+            margin: 0;
+            line-height: 1.3;
+        }
+        .logo-box p {
+            font-size: 11px;
+            color: #64748b;
+            margin: 0;
+        }
+        .navbar ul {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+        .navbar a {
+            color: #475569;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .navbar a:hover {
+            color: #2563eb;
+        }
+
+        /* --- Hero Section Styles ถอดแบบตามเดิม --- */
+        .hero {
+            background: linear-gradient(rgba(26, 46, 90, 0.50), rgba(26, 46, 90, 0.70)), url('bghero.jpg') no-repeat center center/cover;
+            padding: 80px 5%;
+            color: #ffffff;
+            position: relative;
+            text-align: left;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .hero-content {
+            max-width: 800px;
+            width: 100%;
+        }
+        .hero-tag {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            display: inline-block;
+            margin-bottom: 15px;
+            backdrop-filter: blur(4px);
+        }
+        .hero h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            line-height: 1.3;
+        }
+        .hero h2 {
+            font-size: 20px;
+            font-weight: 400;
+            margin-bottom: 15px;
+            opacity: 0.95;
+        }
+        .hero p {
+            font-size: 15px;
+            font-weight: 300;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        /* Playlist Scrollbar Custom */
+        .playlist-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+        .playlist-scroll::-webkit-scrollbar-track {
+            background: #0a0f1d;
+        }
+        .playlist-scroll::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 4px;
+        }
+        .playlist-scroll::-webkit-scrollbar-thumb:hover {
+            background: #ff5722;
+        }
+
+        /* Footer Styles ถอดแบบเดิม */
+        .footer {
+            background-color: #1e2530;
+            color: #94a3b8;
+            padding: 50px 5% 20px 5%;
+            font-size: 14px;
+            border-top: 4px solid #2563eb;
+            margin-top: auto;
+        }
+        .footer-container {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto 40px auto;
+        }
+        .footer-col {
+            flex: 1;
+            min-width: 280px;
+        }
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        .footer-logo img {
+            height: 45px;
+        }
+        .footer-logo h4 {
+            color: #ffffff;
+            font-size: 15px;
+            margin: 0;
+            font-weight: 600;
+        }
+        .footer-logo p {
+            font-size: 11px;
+            margin: 0;
+        }
+        .footer-desc {
+            font-size: 13px;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        .footer-social {
+            display: flex;
+            gap: 10px;
+        }
+        .footer-social a {
+            background: #2e3746;
+            color: #cbd5e1;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: background 0.2s, color 0.2s;
+        }
+        .footer-social a:hover {
+            background: #2563eb;
+            color: #fff;
+        }
+        .footer-col h3 {
+            color: #ffffff;
+            font-size: 16px;
+            margin-bottom: 20px;
+            font-weight: 500;
+            position: relative;
+            padding-bottom: 8px;
+        }
+        .footer-col h3::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 30px;
+            height: 2px;
+            background-color: #2563eb;
+        }
+        .footer-col ul {
+            list-style: none;
+        }
+        .footer-col ul li {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            line-height: 1.5;
+        }
+        .footer-col ul li i {
+            color: #2563eb;
+            margin-top: 4px;
+        }
+        .footer-links a {
+            color: #94a3b8;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .footer-links a:hover {
+            color: #ffffff;
+        }
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #2e3746;
+            font-size: 12px;
+            color: #64748b;
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 15px;
+                padding: 15px 20px;
+            }
+            .logo-box {
+                flex-direction: row;
+                text-align: left;
+            }
+            .navbar ul {
+                gap: 12px;
+                flex-wrap: wrap;
+                justify-content: center;
+                width: 100%;
+            }
+            .hero {
+                padding: 60px 20px;
+            }
+            .hero h1 {
+                font-size: 24px;
+            }
+            .hero h2 {
+                font-size: 16px;
+            }
+            .hero p {
+                font-size: 14px;
+            }
+            .footer-container {
+                flex-direction: column;
+                gap: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. Navbar ตามแบบฉบับเดิม -->
+    <nav class="navbar">
+        <div class="logo-box">
+            <img src="logo_mec.png" alt="MEC Logo" onerror="this.src='https://dummyimage.com/100x100/1a2e5a/ffffff&text=MEC';">
+            <div>
+                <h3>ศูนย์แพทยศาสตร์ศึกษาชั้นคลินิก โรงพยาบาลเจ้าพระยายมราช</h3>
+                <p>Medical Education Center Chaophrayayommarat Hospital</p>
+            </div>
+        </div>
+        <ul>
+            <li><a href="index.html">หน้าแรก</a></li>
+            <li><a href="about.html">เกี่ยวกับเรา</a></li>
+            <li><a href="service.html">บริการ</a></li>
+            <li><a href="#">ติดต่อ</a></li>
+        </ul>
+    </nav>
+
+    <!-- 2. Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <span class="hero-tag"><i class="fa-solid fa-graduation-cap mr-1 text-[#ff5722]"></i> Medical Education Center</span>
+            <h1>คลังความรู้และสื่อการเรียนรู้ออนไลน์</h1>
+            <h2>ศูนย์แพทยศาสตร์ศึกษาชั้นคลินิก โรงพยาบาลเจ้าพระยายมราช</h2>
+            <p>
+                พัฒนาการเรียนการสอนทางการแพทย์ ผลิตบุคลากรทางการแพทย์ที่มีคุณภาพ<br> 
+                พร้อมส่งเสริมงานวิจัยและบริการวิชาการเพื่อสังคม
+            </p>
+        </div>
+    </section>
+
+    <!-- 3. ส่วนบน: Breadcrumb & การ์ดความคืบหน้าการรับชม (Dark Theme) -->
+    <div class="max-w-[1400px] w-full mx-auto px-4 sm:px-6 pt-6">
+        
+        <!-- Breadcrumb Navigation -->
+        <div class="text-xs sm:text-sm text-slate-400 mb-3 flex items-center gap-2">
+            <a href="service.html" class="text-blue-400 hover:underline flex items-center gap-1 font-medium">
+                <i class="fa-solid fa-chevron-left text-xs"></i> กลับสู่หน้าระบบสารสนเทศและบริการ
+            </a>
+            <span>/</span>
+            <span class="text-slate-300">คลังความรู้ (E-Learning Hub)</span>
+        </div>
+
+        <!-- กล่องหัวข้อคอร์สและ Progress Bar โทน Dark Mode -->
+        <div class="bg-[#0e1726] border border-slate-800 rounded-2xl p-5 sm:p-6 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-5 mb-6">
+            <div class="space-y-1">
+                <span class="text-xs font-bold tracking-wider text-[#ff5722] uppercase block">
+                    E-LEARNING COURSE
+                </span>
+                <h2 id="courseTitleHeader" class="text-lg sm:text-xl font-bold text-white font-prompt leading-snug">
+                    หลักสูตรฝึกอบรมทักษะหัตถการทางการแพทย์และการดูแลผู้ป่วยชั้นคลินิก
+                </h2>
+            </div>
+
+            <!-- ความคืบหน้าการรับชม -->
+            <div class="w-full md:w-80 flex-shrink-0">
+                <div class="flex items-center justify-between text-xs sm:text-sm font-medium mb-1.5">
+                    <span class="text-slate-400">ความคืบหน้าการรับชม</span>
+                    <span id="progressSummaryText" class="text-[#ff5722] font-bold">0% (0/0 ตอน)</span>
+                </div>
+                <div class="w-full bg-slate-900 rounded-full h-2 overflow-hidden border border-slate-800">
+                    <div id="courseProgressBar" class="bg-gradient-to-r from-blue-600 to-[#ff5722] h-full rounded-full transition-all duration-500" style="width: 0%"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 4. Main Workspace Grid -->
+    <main class="max-w-[1400px] w-full mx-auto px-4 sm:px-6 pb-12 flex-1">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+            
+            <!-- ฝั่งซ้าย: YouTube Player และเนื้อหาบทเรียน (Col 1-7) -->
+            <div class="lg:col-span-7 flex flex-col gap-0 bg-[#0e1726] border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
+                
+                <!-- เครื่องเล่นวิดีโอ 16:9 Responsive -->
+                <div class="relative w-full aspect-video bg-black">
+                    <iframe 
+                        id="videoPlayer" 
+                        class="absolute top-0 left-0 w-full h-full border-0" 
+                        src="" 
+                        title="YouTube video player" 
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                        referrerpolicy="strict-origin-when-cross-origin"
+                        allowfullscreen>
+                    </iframe>
+                </div>
+
+                <!-- แถบปุ่มควบคุม -->
+                <div class="p-4 sm:p-5 border-b border-slate-800/80 flex flex-wrap items-center justify-between gap-3 bg-[#0c1322]">
+                    <div class="flex items-center gap-2">
+                        <button onclick="prevLesson()" class="px-3.5 py-2 rounded-lg bg-slate-800/90 hover:bg-slate-700 text-slate-200 text-xs sm:text-sm font-medium transition flex items-center gap-1.5 border border-slate-700">
+                            <i class="fa-solid fa-backward-step"></i> ตอนก่อนหน้า
+                        </button>
+                        <button onclick="nextLesson()" class="px-3.5 py-2 rounded-lg bg-slate-800/90 hover:bg-slate-700 text-slate-200 text-xs sm:text-sm font-medium transition flex items-center gap-1.5 border border-slate-700">
+                            ตอนถัดไป <i class="fa-solid fa-forward-step"></i>
+                        </button>
+                    </div>
+
+                    <button id="toggleCompleteBtn" onclick="toggleCurrentLessonComplete()" class="px-4 py-2 rounded-lg bg-[#00a86b] hover:bg-[#00915c] text-white text-xs sm:text-sm font-semibold transition flex items-center gap-2 shadow-lg shadow-emerald-900/20">
+                        <i class="fa-regular fa-circle-check text-base"></i> ทำเครื่องหมายว่าดูจบแล้ว
+                    </button>
+                </div>
+
+                <!-- ข้อมูลบทเรียน & เอกสารประกอบการเรียนรู้ด้านล่าง -->
+                <div class="p-5 sm:p-7 space-y-4">
+                    
+                    <!-- ป้ายตอนที่, เวลา และอาจารย์ผู้สอน -->
+                    <div class="flex flex-wrap items-center gap-2.5 text-xs sm:text-sm">
+                        <span id="currentEpisodeBadge" class="px-2.5 py-0.5 rounded-full bg-[#ff5722]/20 text-[#ff5722] font-semibold border border-[#ff5722]/30">
+                            ตอนที่ 1
+                        </span>
+                        <span id="currentDurationBadge" class="text-slate-400">
+                            <i class="fa-regular fa-clock mr-1"></i> 00:00 นาที
+                        </span>
+                        <span id="currentInstructorBadge" class="text-blue-400 font-medium">
+                            <i class="fa-solid fa-user-doctor mr-1"></i> ผู้สอน
+                        </span>
+                    </div>
+
+                    <!-- หัวข้อตอน -->
+                    <h1 id="currentTitle" class="text-xl sm:text-2xl font-bold text-white font-prompt leading-snug">
+                        ชื่อตอนบทเรียน
+                    </h1>
+
+                    <!-- คำอธิบายบทเรียน -->
+                    <p id="currentDescription" class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                        คำอธิบายบทเรียนจะแสดงที่นี่...
+                    </p>
+
+                    <!-- เอกสารประกอบการเรียนรู้ (ด้านล่างแบบการ์ดดาวน์โหลด) -->
+                    <div class="pt-4 border-t border-slate-800/80">
+                        <h4 class="text-xs sm:text-sm font-bold text-white flex items-center gap-2 mb-3">
+                            <i class="fa-solid fa-file-pdf text-[#ff5722] text-base"></i> เอกสารประกอบการเรียนรู้
+                        </h4>
+                        
+                        <!-- การ์ดเอกสารดาวน์โหลด -->
+                        <div id="documentsContainer" class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <!-- แสดงรายการไฟล์ผ่าน JavaScript -->
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- ฝั่งขวา: เพลย์ลิสต์แบ่งตามหมวดหมู่ (Col 8-12) -->
+            <div class="lg:col-span-5">
+                <div class="bg-[#0e1726] border border-slate-800 rounded-2xl overflow-hidden shadow-xl sticky top-24">
+                    
+                    <!-- ส่วนหัวเพลย์ลิสต์ & สถิติดูจบ -->
+                    <div class="p-4 border-b border-slate-800/80">
+                        <div class="flex items-center justify-between mb-3">
+                            <div class="flex items-center gap-2 text-white font-bold text-base font-prompt">
+                                <i class="fa-solid fa-list-ul text-[#ff5722]"></i>
+                                <span>รายการบทเรียนทั้งหมด</span>
+                            </div>
+                            <span id="headerProgressBadge" class="text-xs bg-[#1f293d] text-slate-300 px-3 py-1 rounded-full font-medium border border-slate-700">
+                                0 / 0 ตอน
+                            </span>
+                        </div>
+
+                        <!-- ช่องค้นหาบทเรียนหรือผู้บรรยาย -->
+                        <div class="relative">
+                            <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3 text-slate-500 text-xs"></i>
+                            <input 
+                                type="text" 
+                                id="searchInput" 
+                                oninput="handleSearch()"
+                                placeholder="ค้นหาชื่อตอน หรือผู้บรรยาย..." 
+                                class="w-full bg-[#0a0f1d] border border-slate-800 rounded-xl pl-9 pr-3 py-2 text-xs text-slate-200 placeholder-slate-500 focus:outline-none focus:border-blue-500 transition"
+                            />
+                        </div>
+                    </div>
+
+                    <!-- รายการคลิปแบ่งตามหมวดหมู่ (Scrollable) -->
+                    <div id="categoriesContainer" class="playlist-scroll overflow-y-auto max-h-[calc(100vh-270px)] p-3 space-y-4">
+                        <!-- โครงสร้างหมวดหมู่จะถูกเรนเดอร์ผ่าน JavaScript -->
+                    </div>
+
+                    <!-- แถบล่างสุดของกล่องเพลย์ลิสต์ -->
+                    <div class="p-3 bg-[#0a0f1d] border-t border-slate-800/80 flex justify-between items-center text-xs text-slate-400">
+                        <div class="flex items-center gap-1.5 text-slate-300">
+                            <i class="fa-solid fa-shield-halved text-blue-400"></i>
+                            <span>MEC YouTube Unlisted</span>
+                        </div>
+                        <button onclick="scrollToTopPlaylist()" class="text-[#ff5722] hover:underline flex items-center gap-1 font-medium">
+                            ขึ้นไปบนสุด <i class="fa-solid fa-arrow-up"></i>
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- 5. Footer ถอดแบบเดิม[cite: 1, 3] -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-col footer-about">
+                <div class="footer-logo">
+                    <img src="logo_mec.png" alt="MEC Logo" onerror="this.src='https://dummyimage.com/100x100/1a2e5a/ffffff&text=MEC';">
+                    <div>
+                        <h4>ศูนย์แพทยศาสตร์ศึกษาชั้นคลินิก</h4>
+                        <p>โรงพยาบาลเจ้าพระยายมราช สุพรรณบุรี</p>
+                    </div>
+                </div>
+                <p class="footer-desc">กลุ่มงานฝึกอบรมพัฒนาบุคลากรทางการแพทย์</p>
+                <div class="footer-social">
+                    <a href="https://www.facebook.com/MEC.YRH/" target="_blank" title="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" title="Line"><i class="fa-brands fa-line"></i></a>
+                    <a href="#" title="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="#" title="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="#" title="Website"><i class="fa-solid fa-globe"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-col footer-contact">
+                <h3>ติดต่อเรา</h3>
+                <ul>
+                    <li>
+                        <i class="fa-solid fa-location-dot"></i>
+                        <span>โรงพยาบาลเจ้าพระยายมราช เลขที่ 950 ถ.พระพันวษา ต.ท่าพี่เลี้ยง อ.เมืองสุพรรณบุรี จ.สุพรรณบุรี 72000</span>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-phone"></i>
+                        <span>035-000-000 (สายตรง)</span>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-envelope"></i>
+                        <span>mec.yommarat@gmail.com</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="footer-col footer-links">
+                <h3>ลิงก์ที่เป็นประโยชน์</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html"><i class="fa-solid fa-chevron-right"></i> ข้อมูลโรงพยาบาลเจ้าพระยายมราช</a></li>
+                    <li><a href="about.html"><i class="fa-solid fa-chevron-right"></i> ข้อมูลศูนย์แพทยศาสตร์</a></li>
+                    <li><a href="#"><i class="fa-solid fa-chevron-right"></i> คู่มือนิสิต/นักศึกษาแพทย์</a></li>
+                    <li><a href="#"><i class="fa-solid fa-chevron-right"></i> คำถามที่พบบ่อย (FAQ)</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2026 ศูนย์แพทยศาสตร์ศึกษาชั้นคลินิก โรงพยาบาลเจ้าพระยายมราช สุพรรณบุรี | สงวนลิขสิทธิ์</p>
+        </div>
+    </footer>
+
+    <!-- ==========================================
+         โค้ด JavaScript เชื่อมต่อ Google Sheets API
+         ========================================== -->
+    <script>
+        // URL Web App API จาก Google Apps Script ของคุณ
+        const GOOGLE_SHEET_API = "https://script.google.com/macros/s/AKfycbwqW5XrPZEy6dx0eQR2rC45EbdlvkZOzTlmXxAXget2EBKJHdWO86nI3blItJqQZHmm/exec";
+
+        let flatLessons = [];
+        let currentFlatIndex = 0;
+        let searchQuery = "";
+        const STORAGE_KEY = "MEC_PROGRESS_SHEETS_TRACKER";
+        let completedIds = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+
+        // โหลดข้อมูลสดจาก Google Sheets ทันทีที่เปิดหน้าเว็บ
+        window.addEventListener('DOMContentLoaded', async () => {
+            const container = document.getElementById('categoriesContainer');
+            container.innerHTML = '<div class="text-center py-10 text-xs text-slate-400"><i class="fa-solid fa-spinner fa-spin mr-2"></i>กำลังโหลดข้อมูลจากฐานข้อมูล...</div>';
+
+            try {
+                const response = await fetch(GOOGLE_SHEET_API);
+                const data = await response.json();
+
+                // กรองแถวที่มี youtubeId และแปลงโครงสร้างข้อมูล
+                flatLessons = data.filter(item => item.youtubeId).map((item, idx) => ({
+                    id: idx + 1,
+                    categoryName: item.category || "หมวดหมู่ทั่วไป",
+                    tag: item.tag || "บทเรียน",
+                    tagColor: (item.tag && item.tag.includes("ฉุกเฉิน")) ? "text-orange-400" : "text-sky-400",
+                    title: item.title,
+                    instructor: item.instructor,
+                    duration: item.duration || "00:00",
+                    youtubeId: String(item.youtubeId).trim(),
+                    description: item.description || "ไม่มีคำอธิบายบทเรียน",
+                    documents: item.docName ? [{
+                        name: item.docName,
+                        size: item.docSize || "",
+                        url: item.docUrl || "#"
+                    }] : []
+                }));
+
+                renderPlaylist();
+                if (flatLessons.length > 0) {
+                    loadLesson(0);
+                } else {
+                    container.innerHTML = '<div class="text-center py-8 text-xs text-slate-400">ยังไม่มีบทเรียนในระบบ</div>';
+                }
+                updateProgressStats();
+            } catch (error) {
+                console.error("Error loading data from Google Sheets:", error);
+                container.innerHTML = '<div class="text-center py-10 text-xs text-rose-400"><i class="fa-solid fa-triangle-exclamation mr-1"></i>ไม่สามารถเชื่อมต่อฐานข้อมูล Google Sheets ได้</div>';
+            }
+        });
+
+        // ฟังก์ชันเรนเดอร์เพลย์ลิสต์จัดกลุ่มหมวดหมู่อัตโนมัติ
+        function renderPlaylist() {
+            const container = document.getElementById('categoriesContainer');
+            container.innerHTML = '';
+
+            const uniqueCategories = [...new Set(flatLessons.map(l => l.categoryName))];
+
+            uniqueCategories.forEach(catName => {
+                const lessonsInCat = flatLessons.filter(l => 
+                    l.categoryName === catName && 
+                    (l.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                     l.instructor.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                     l.tag.toLowerCase().includes(searchQuery.toLowerCase()))
+                );
+
+                if (lessonsInCat.length === 0) return;
+
+                const catBlock = document.createElement('div');
+                catBlock.className = "space-y-2";
+
+                const catHeader = document.createElement('div');
+                catHeader.className = "flex items-center justify-between text-xs text-slate-300 font-semibold px-1 pt-1";
+                catHeader.innerHTML = `
+                    <div class="flex items-center gap-2 truncate">
+                        <i class="fa-solid fa-folder-open text-[#ff5722]"></i>
+                        <span class="truncate uppercase tracking-wide">${catName}</span>
+                    </div>
+                    <span class="text-[11px] text-slate-500 flex-shrink-0">${lessonsInCat.length} ตอน</span>
+                `;
+                catBlock.appendChild(catHeader);
+
+                lessonsInCat.forEach(lesson => {
+                    const flatIdx = flatLessons.findIndex(item => item.id === lesson.id);
+                    const isCurrent = flatIdx === currentFlatIndex;
+                    const isDone = completedIds.includes(lesson.id);
+
+                    const card = document.createElement('div');
+                    card.className = `p-3 rounded-xl border transition-all cursor-pointer relative ${
+                        isCurrent 
+                            ? 'bg-[#1e1e2d] border-[#ff5722] shadow-lg shadow-[#ff5722]/10' 
+                            : 'bg-[#151c2c]/80 border-slate-800/80 hover:bg-[#1a2337] hover:border-slate-700'
+                    }`;
+                    card.onclick = () => loadLesson(flatIdx);
+
+                    card.innerHTML = `
+                        <div class="flex items-start gap-3">
+                            <button onclick="event.stopPropagation(); toggleLessonId(${lesson.id})" class="mt-0.5 text-base transition ${isDone ? 'text-emerald-400' : 'text-slate-600 hover:text-slate-400'}">
+                                <i class="${isDone ? 'fa-solid fa-square-check' : 'fa-regular fa-square'}"></i>
+                            </button>
+
+                            <div class="flex-1 min-w-0">
+                                <div class="flex items-center justify-between text-xs mb-1">
+                                    <span class="${lesson.tagColor} font-medium text-[11px]">${lesson.tag}</span>
+                                    <span class="text-slate-500 text-[11px]"><i class="fa-regular fa-clock mr-0.5"></i> ${lesson.duration}</span>
+                                </div>
+                                <h4 class="text-xs sm:text-sm font-medium leading-snug ${isCurrent ? 'text-white font-semibold' : 'text-slate-200'} line-clamp-2 mb-1.5">
+                                    ${lesson.title}
+                                </h4>
+                                <p class="text-[11px] text-slate-400 truncate flex items-center gap-1">
+                                    <i class="fa-solid fa-user-doctor text-slate-500"></i> ${lesson.instructor}
+                                </p>
+                            </div>
+
+                            <div class="self-center pl-1">
+                                ${isCurrent 
+                                    ? '<span class="w-2.5 h-2.5 rounded-full bg-[#ff5722] block animate-pulse"></span>' 
+                                    : '<i class="fa-regular fa-circle-play text-slate-600 text-sm"></i>'}
+                            </div>
+                        </div>
+                    `;
+
+                    catBlock.appendChild(card);
+                });
+
+                container.appendChild(catBlock);
+            });
+
+            if (container.children.length === 0 && flatLessons.length > 0) {
+                container.innerHTML = '<div class="text-center py-8 text-xs text-slate-500">ไม่พบบทเรียนที่ตรงกับคำค้นหา</div>';
+            }
+        }
+
+        // โหลดบทเรียนขึ้นหน้าจอ
+        function loadLesson(index) {
+            if (index < 0 || index >= flatLessons.length) return;
+
+            currentFlatIndex = index;
+            const lesson = flatLessons[index];
+
+            // Embed วิดีโอ YouTube
+            const player = document.getElementById('videoPlayer');
+            player.src = `https://www.youtube.com/embed/${lesson.youtubeId}?autoplay=1&rel=0&enablejsapi=1`;
+
+            // ข้อมูลตอนใต้เครื่องเล่น
+            document.getElementById('currentEpisodeBadge').innerText = `ตอนที่ ${lesson.id}`;
+            document.getElementById('currentDurationBadge').innerHTML = `<i class="fa-regular fa-clock mr-1"></i> ${lesson.duration} นาที`;
+            document.getElementById('currentInstructorBadge').innerHTML = `<i class="fa-solid fa-user-doctor mr-1"></i> ${lesson.instructor}`;
+            document.getElementById('currentTitle').innerText = lesson.title;
+            document.getElementById('currentDescription').innerText = lesson.description;
+
+            // การ์ดเอกสารแนบดาวน์โหลด
+            const docContainer = document.getElementById('documentsContainer');
+            docContainer.innerHTML = '';
+            if (lesson.documents && lesson.documents.length > 0) {
+                lesson.documents.forEach(doc => {
+                    const docEl = document.createElement('a');
+                    docEl.href = doc.url;
+                    docEl.target = '_blank';
+                    docEl.className = "flex items-center justify-between p-3 rounded-xl bg-[#0a0f1d] hover:bg-[#151c2c] border border-slate-800 text-slate-300 text-xs sm:text-sm transition group shadow-sm";
+                    docEl.innerHTML = `
+                        <div class="flex items-center gap-2.5 truncate">
+                            <i class="fa-solid fa-file-pdf text-red-500 text-base flex-shrink-0"></i>
+                            <span class="truncate font-medium text-slate-200">${doc.name} ${doc.size ? `(${doc.size})` : ''}</span>
+                        </div>
+                        <i class="fa-solid fa-download text-slate-500 group-hover:text-blue-400 flex-shrink-0 ml-2"></i>
+                    `;
+                    docContainer.appendChild(docEl);
+                });
+            } else {
+                docContainer.innerHTML = '<p class="text-xs text-slate-500 italic py-2">ไม่มีเอกสารแนบในตอนนี้</p>';
+            }
+
+            updateCompleteButtonUI();
+            renderPlaylist();
+        }
+
+        function prevLesson() {
+            if (currentFlatIndex > 0) loadLesson(currentFlatIndex - 1);
+        }
+
+        function nextLesson() {
+            if (currentFlatIndex < flatLessons.length - 1) loadLesson(currentFlatIndex + 1);
+        }
+
+        function toggleLessonId(id) {
+            const idx = completedIds.indexOf(id);
+            if (idx > -1) {
+                completedIds.splice(idx, 1);
+            } else {
+                completedIds.push(id);
+            }
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(completedIds));
+            renderPlaylist();
+            updateCompleteButtonUI();
+            updateProgressStats();
+        }
+
+        function toggleCurrentLessonComplete() {
+            const currentLesson = flatLessons[currentFlatIndex];
+            toggleLessonId(currentLesson.id);
+        }
+
+        function updateCompleteButtonUI() {
+            const currentLesson = flatLessons[currentFlatIndex];
+            const isDone = completedIds.includes(currentLesson.id);
+            const btn = document.getElementById('toggleCompleteBtn');
+
+            if (isDone) {
+                btn.className = "px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-emerald-400 text-xs sm:text-sm font-semibold transition flex items-center gap-2 border border-emerald-500/40 shadow-sm";
+                btn.innerHTML = `<i class="fa-solid fa-circle-check text-base"></i> ดูจบแล้ว (คลิกเพื่อยกเลิก)`;
+            } else {
+                btn.className = "px-4 py-2 rounded-lg bg-[#00a86b] hover:bg-[#00915c] text-white text-xs sm:text-sm font-semibold transition flex items-center gap-2 shadow-lg shadow-emerald-900/20";
+                btn.innerHTML = `<i class="fa-regular fa-circle-check text-base"></i> ทำเครื่องหมายว่าดูจบแล้ว`;
+            }
+        }
+
+        function updateProgressStats() {
+            const total = flatLessons.length;
+            const completed = completedIds.length;
+            const percent = total > 0 ? Math.round((completed / total) * 100) : 0;
+
+            document.getElementById('progressSummaryText').innerText = `${percent}% (${completed}/${total} ตอน)`;
+            document.getElementById('courseProgressBar').style.width = `${percent}%`;
+            document.getElementById('headerProgressBadge').innerText = `${completed} / ${total} ตอน`;
+        }
+
+        function handleSearch() {
+            searchQuery = document.getElementById('searchInput').value;
+            renderPlaylist();
+        }
+
+        function scrollToTopPlaylist() {
+            document.getElementById('categoriesContainer').scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
