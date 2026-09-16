@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ข่าวสารและกิจกรรม - ศูนย์แพทยศาสตร์ศึกษาชั้นคลินิก</title>
     
+    <!-- ฟอนต์ Noto Sans Thai และ Font Awesome -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -23,10 +24,10 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-            overflow-x: hidden; /* ป้องกันจอดิ้นหลุดขอบข้าง */
+            overflow-x: hidden; /* ป้องกันหน้าเว็บเลื่อนหลุดขอบข้าง */
         }
 
-        /* --- Navbar --- */
+        /* --- Navbar Styles --- */
         .navbar {
             background-color: #ffffff;
             box-shadow: 0 2px 10px rgba(0,0,0,0.05);
@@ -75,12 +76,13 @@
             color: #2563eb;
         }
 
-        /* --- Hero Section --- */
+        /* --- Hero Section Styles --- */
         .hero {
             background: linear-gradient(rgba(26, 46, 90, 0.55), rgba(26, 46, 90, 0.75)), url('IMG_5598.JPG') no-repeat center center/cover;
-            background-color: #1a2e5a; /* สำรองกรณีรูปยังไม่โหลด */
-            padding: 90px 5%;
+            background-color: #1a2e5a;
+            padding: 85px 5%;
             color: #ffffff;
+            position: relative;
             text-align: left;
             display: flex;
             justify-content: flex-start;
@@ -120,7 +122,7 @@
             opacity: 0.9;
         }
 
-        /* --- Main Content --- */
+        /* --- Main News Section --- */
         .news-section {
             max-width: 1200px;
             width: 100%;
@@ -159,9 +161,24 @@
             font-size: 14px;
             font-weight: 600;
             white-space: nowrap;
+            transition: color 0.2s;
+        }
+        .view-all-btn i {
+            font-size: 12px;
+            border: 1px solid #cbd5e1;
+            padding: 6px;
+            border-radius: 50%;
+            transition: all 0.2s;
+        }
+        .view-all-btn:hover {
+            color: #2563eb;
+        }
+        .view-all-btn:hover i {
+            border-color: #2563eb;
+            background-color: #eff6ff;
         }
 
-        /* --- Featured News Grid (จุดที่แก้บั๊กมือถือ) --- */
+        /* --- Layout ตารางข่าวไฮไลต์ --- */
         .news-featured-grid {
             display: grid;
             grid-template-columns: 1.5fr 1fr;
@@ -169,6 +186,7 @@
             margin-bottom: 40px;
         }
 
+        /* การ์ดข่าวใหญ่ */
         .featured-large {
             background: #ffffff;
             border: 1px solid #e2e8f0;
@@ -218,6 +236,7 @@
             margin-top: 15px;
         }
 
+        /* ข่าวย่อยฝั่งขวา */
         .featured-side-list {
             display: flex;
             flex-direction: column;
@@ -266,7 +285,7 @@
             font-weight: 600;
         }
 
-        /* --- Category Tabs (เพิ่ม scrollbar แนวนอนในมือถือ) --- */
+        /* --- หมวดหมู่ข่าว --- */
         .category-tabs {
             display: flex;
             gap: 8px;
@@ -276,6 +295,9 @@
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
             white-space: nowrap;
+        }
+        .category-tabs::-webkit-scrollbar {
+            display: none; /* ซ่อน scrollbar เพื่อความเรียบร้อย */
         }
         .tab-btn {
             background: none;
@@ -295,7 +317,7 @@
             color: #ffffff;
         }
 
-        /* --- News Card Grid --- */
+        /* --- รายการข่าวทั่วไป --- */
         .news-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -347,7 +369,7 @@
             margin-bottom: 12px;
         }
 
-        /* --- Footer --- */
+        /* --- Footer Styles --- */
         .footer {
             background-color: #1e2530;
             color: #94a3b8;
@@ -400,6 +422,11 @@
             align-items: center;
             justify-content: center;
             text-decoration: none;
+            transition: background 0.2s;
+        }
+        .footer-social a:hover {
+            background: #2563eb;
+            color: #fff;
         }
         .footer-col h3 {
             color: #ffffff;
@@ -426,9 +453,17 @@
             gap: 8px;
             line-height: 1.5;
         }
+        .footer-col ul li i {
+            color: #2563eb;
+            margin-top: 4px;
+        }
         .footer-links a {
             color: #94a3b8;
             text-decoration: none;
+            transition: color 0.2s;
+        }
+        .footer-links a:hover {
+            color: #ffffff;
         }
         .footer-bottom {
             text-align: center;
@@ -438,7 +473,7 @@
             color: #64748b;
         }
 
-        /* 📱 Responsive ปรับสำหรับจอมือถือโดยเฉพาะ */
+        /* 📱 จัดการหน้าจอมือถือ (Responsive ปรับปรุงใหม่ทั้งหมด) */
         @media (max-width: 768px) {
             .navbar {
                 flex-direction: column;
@@ -483,7 +518,7 @@
                 font-size: 22px;
             }
 
-            /* แก้จุดที่พัง: ปรับให้เรียงลงมาเป็นคอลัมน์เดียว */
+            /* แปลง Layout ข่าวเด่นเป็นแถวเดี่ยว */
             .news-featured-grid {
                 grid-template-columns: 1fr;
                 gap: 15px;
@@ -493,7 +528,7 @@
             }
             .featured-large .img-box {
                 width: 100%;
-                height: 180px;
+                height: 190px;
                 min-height: auto;
             }
             .featured-large .content-box {
@@ -517,6 +552,14 @@
 
             .news-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .footer-container {
+                flex-direction: column;
+                gap: 25px;
+            }
+            .footer-col {
+                min-width: 100%;
             }
         }
     </style>
@@ -561,90 +604,25 @@
             <a href="#" class="view-all-btn">ดูทั้งหมด <i class="fa-solid fa-arrow-right"></i></a>
         </div>
 
-        <!-- Featured News Grid -->
-        <div class="news-featured-grid">
-            
-            <a href="#" class="featured-large">
-                <div class="img-box">
-                    <img src="news-highlight.jpg" alt="ข่าวไฮไลต์">
-                </div>
-                <div class="content-box">
-                    <h3>พิธีลงนามบันทึกข้อตกลงความร่วมมือทางวิชาการ ระหว่างมหาวิทยาลัยเกษตรศาสตร์กับสำนักงานสาธารณสุขสุพรรณบุรี</h3>
-                    <div class="read-more">อ่านต่อ <i class="fa-solid fa-arrow-right"></i></div>
-                </div>
-            </a>
-
-            <div class="featured-side-list">
-                <a href="#" class="side-card">
-                    <div class="img-box">
-                        <img src="news-thumb1.jpg" alt="ข่าว 1">
-                    </div>
-                    <div class="content-box">
-                        <h4>สนับสนุนให้โรงพยาบาลเจ้าพระยายมราช เป็นโรงพยาบาลหลักในการร่วมผลิตแพทย์</h4>
-                        <div class="read-more">อ่านต่อ <i class="fa-solid fa-arrow-right"></i></div>
-                    </div>
-                </a>
-
-                <a href="#" class="side-card">
-                    <div class="img-box">
-                        <img src="news-thumb2.jpg" alt="ข่าว 2">
-                    </div>
-                    <div class="content-box">
-                        <h4>ต่อยอดความร่วมมือทางวิชาการและการวิจัยทางการแพทย์ ร่วมกับสถาบันการศึกษาชั้นนำ</h4>
-                        <div class="read-more">อ่านต่อ <i class="fa-solid fa-arrow-right"></i></div>
-                    </div>
-                </a>
+        <!-- Featured News Grid (จะถูกแทนที่ด้วยข้อมูลจาก Google Sheets) -->
+        <div class="news-featured-grid" id="featuredGrid">
+            <!-- ข้อมูลตัวอย่างแสดงตอนกำลังโหลด -->
+            <div style="padding: 20px; text-align: center; color: #64748b; grid-column: 1 / -1;">
+                กำลังโหลดข้อมูลข่าวสาร...
             </div>
         </div>
 
-        <!-- แท็บหมวดหมู่ (เลื่อนข้างได้ไม่ล้นจอ) -->
-        <div class="category-tabs">
-            <button class="tab-btn active">ทั้งหมด</button>
-            <button class="tab-btn">ข่าววิชาการ/การศึกษา</button>
-            <button class="tab-btn">กิจกรรมสถาบัน</button>
-            <button class="tab-btn">ประกาศ/รับสมัคร</button>
+        <!-- หมวดหมู่ข่าว -->
+        <div class="category-tabs" id="categoryTabs">
+            <button class="tab-btn active" onclick="filterNews('ทั้งหมด', this)">ทั้งหมด</button>
+            <button class="tab-btn" onclick="filterNews('ข่าววิชาการ/การศึกษา', this)">ข่าววิชาการ/การศึกษา</button>
+            <button class="tab-btn" onclick="filterNews('กิจกรรมสถาบัน', this)">กิจกรรมสถาบัน</button>
+            <button class="tab-btn" onclick="filterNews('ประกาศ/รับสมัคร', this)">ประกาศ/รับสมัคร</button>
         </div>
 
         <!-- รายการข่าวทั่วไป -->
-        <div class="news-grid">
-            <a href="#" class="news-card">
-                <div class="card-img">
-                    <img src="news-1.jpg" alt="ข่าวสาร">
-                </div>
-                <div class="card-body">
-                    <div>
-                        <div class="date"><i class="fa-regular fa-calendar"></i> 12 มีนาคม 2026</div>
-                        <h3>โครงการซ้อมแผนเผชิญเหตุและปฐมพยาบาลชั้นสูงสำหรับนิสิตแพทย์ชั้นคลินิก</h3>
-                    </div>
-                    <div class="read-more">อ่านรายละเอียด <i class="fa-solid fa-arrow-right"></i></div>
-                </div>
-            </a>
-
-            <a href="#" class="news-card">
-                <div class="card-img">
-                    <img src="news-2.jpg" alt="ข่าวสาร">
-                </div>
-                <div class="card-body">
-                    <div>
-                        <div class="date"><i class="fa-regular fa-calendar"></i> 5 มีนาคม 2026</div>
-                        <h3>การบรรยายพิเศษเรื่องนวัตกรรมทางการแพทย์และการบริการสาธารณสุขยุคดิจิทัล</h3>
-                    </div>
-                    <div class="read-more">อ่านรายละเอียด <i class="fa-solid fa-arrow-right"></i></div>
-                </div>
-            </a>
-
-            <a href="#" class="news-card">
-                <div class="card-img">
-                    <img src="news-3.jpg" alt="ข่าวสาร">
-                </div>
-                <div class="card-body">
-                    <div>
-                        <div class="date"><i class="fa-regular fa-calendar"></i> 20 กุมภาพันธ์ 2026</div>
-                        <h3>ขอเชิญเข้าร่วมงานประชุมวิชาการประจำปี ศูนย์แพทยศาสตร์ศึกษาชั้นคลินิก</h3>
-                    </div>
-                    <div class="read-more">อ่านรายละเอียด <i class="fa-solid fa-arrow-right"></i></div>
-                </div>
-            </a>
+        <div class="news-grid" id="normalGrid">
+            <!-- การ์ดข่าวจะถูกใส่ผ่าน JavaScript -->
         </div>
 
     </main>
@@ -662,7 +640,7 @@
                 </div>
                 <p>กลุ่มงานฝึกอบรมพัฒนาบุคลากรทางการแพทย์</p>
                 <div class="footer-social">
-                    <a href="https://www.facebook.com/MEC.YRH/"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="https://www.facebook.com/MEC.YRH/" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
                     <a href="#"><i class="fa-brands fa-line"></i></a>
                     <a href="#"><i class="fa-brands fa-youtube"></i></a>
                 </div>
@@ -671,16 +649,183 @@
             <div class="footer-col">
                 <h3>ติดต่อเรา</h3>
                 <ul>
-                    <li><i class="fa-solid fa-location-dot"></i> โรงพยาบาลเจ้าพระยายมราช จ.สุพรรณบุรี</li>
+                    <li><i class="fa-solid fa-location-dot"></i> โรงพยาบาลเจ้าพระยายมราช อ.เมือง จ.สุพรรณบุรี</li>
                     <li><i class="fa-solid fa-envelope"></i> mec.yommarat@gmail.com</li>
                 </ul>
             </div>
         </div>
 
         <div class="footer-bottom">
-            <p>© 2026 ศูนย์แพทยศาสตร์ศึกษาชั้นคลินิก โรงพยาบาลเจ้าพระยายมราช สุพรรณบุรี</p>
+            <p>© 2026 ศูนย์แพทยศาสตร์ศึกษาชั้นคลินิก โรงพยาบาลเจ้าพระยายมราช สุพรรณบุรี | สงวนลิขสิทธิ์</p>
         </div>
     </footer>
 
+    <!-- Script สำหรับดึงข้อมูลอัตโนมัติจาก Google Sheets -->
+    <script>
+        // -------------------------------------------------------------
+        // นำ Web App URL ที่ได้จาก Apps Script มาใส่ตรงนี้
+        // -------------------------------------------------------------
+        const SHEET_API_URL = 'YOUR_APPS_SCRIPT_WEB_APP_URL';
+
+        let allNewsData = [];
+
+        async function fetchNewsData() {
+            try {
+                // ถ้ายังไม่ได้ใส่ URL จริง จะใช้ข้อมูลตัวอย่างเพื่อไม่ให้หน้าเว็บว่าง
+                if (SHEET_API_URL === 'YOUR_APPS_SCRIPT_WEB_APP_URL') {
+                    allNewsData = getFallbackData();
+                } else {
+                    const response = await fetch(SHEET_API_URL);
+                    allNewsData = await response.json();
+                }
+                
+                renderFeaturedNews(allNewsData);
+                renderNormalNews(allNewsData);
+            } catch (err) {
+                console.error("โหลดข้อมูลข่าวไม่สำเร็จ:", err);
+                allNewsData = getFallbackData();
+                renderFeaturedNews(allNewsData);
+                renderNormalNews(allNewsData);
+            }
+        }
+
+        // แสดงผลข่าวไฮไลต์ด้านบน
+        function renderFeaturedNews(newsList) {
+            const container = document.getElementById('featuredGrid');
+            const main = newsList.find(n => n.type === 'featured_main') || newsList[0];
+            const sideList = newsList.filter(n => n.type === 'featured_side').slice(0, 2);
+
+            if (!main) return;
+
+            let sideHtml = '';
+            sideList.forEach(item => {
+                sideHtml += `
+                    <a href="${item.link_url || '#'}" class="side-card">
+                        <div class="img-box">
+                            <img src="${item.image_url}" alt="ข่าวย่อย">
+                        </div>
+                        <div class="content-box">
+                            <h4>${item.title}</h4>
+                            <div class="read-more">อ่านต่อ <i class="fa-solid fa-arrow-right"></i></div>
+                        </div>
+                    </a>
+                `;
+            });
+
+            container.innerHTML = `
+                <a href="${main.link_url || '#'}" class="featured-large">
+                    <div class="img-box">
+                        <img src="${main.image_url}" alt="ข่าวไฮไลต์">
+                    </div>
+                    <div class="content-box">
+                        <h3>${main.title}</h3>
+                        <div class="read-more">อ่านต่อ <i class="fa-solid fa-arrow-right"></i></div>
+                    </div>
+                </a>
+                <div class="featured-side-list">
+                    ${sideHtml}
+                </div>
+            `;
+        }
+
+        // แสดงผลรายการข่าวทั่วไปด้านล่าง
+        function renderNormalNews(newsList) {
+            const container = document.getElementById('normalGrid');
+            container.innerHTML = '';
+
+            const normalList = newsList.filter(n => n.type === 'normal');
+
+            if (normalList.length === 0) {
+                container.innerHTML = '<p style="color:#94a3b8;">ยังไม่มีข่าวสารในหมวดหมู่นี้</p>';
+                return;
+            }
+
+            normalList.forEach(item => {
+                container.innerHTML += `
+                    <a href="${item.link_url || '#'}" class="news-card">
+                        <div class="card-img">
+                            <img src="${item.image_url}" alt="ข่าวสาร">
+                        </div>
+                        <div class="card-body">
+                            <div>
+                                <div class="date"><i class="fa-regular fa-calendar" style="margin-right: 4px;"></i> ${item.date}</div>
+                                <h3>${item.title}</h3>
+                            </div>
+                            <div class="read-more">อ่านรายละเอียด <i class="fa-solid fa-arrow-right"></i></div>
+                        </div>
+                    </a>
+                `;
+            });
+        }
+
+        // ระบบกรองข่าวตามหมวดหมู่
+        function filterNews(cat, btn) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            if (cat === 'ทั้งหมด') {
+                renderNormalNews(allNewsData);
+            } else {
+                const filtered = allNewsData.filter(n => n.category === cat && n.type === 'normal');
+                renderNormalNews(filtered);
+            }
+        }
+
+        // ข้อมูลสำรองกรณีรันแบบออฟไลน์หรือยังไม่ได้ใส่ API URL
+        function getFallbackData() {
+            return [
+                {
+                    type: "featured_main",
+                    category: "ข่าววิชาการ/การศึกษา",
+                    title: "พิธีลงนามบันทึกข้อตกลงความร่วมมือทางวิชาการ ระหว่างมหาวิทยาลัยเกษตรศาสตร์กับสำนักงานสาธารณสุขสุพรรณบุรี",
+                    date: "14 มีนาคม 2026",
+                    image_url: "news-highlight.jpg",
+                    link_url: "#"
+                },
+                {
+                    type: "featured_side",
+                    category: "ข่าววิชาการ/การศึกษา",
+                    title: "กระทรวงสาธารณสุขและมหาวิทยาลัยเกษตรศาสตร์ สนับสนุนโรงพยาบาลเจ้าพระยายมราชเป็นโรงพยาบาลหลักในการผลิตแพทย์",
+                    date: "13 มีนาคม 2026",
+                    image_url: "news-thumb1.jpg",
+                    link_url: "#"
+                },
+                {
+                    type: "featured_side",
+                    category: "กิจกรรมสถาบัน",
+                    title: "ต่อยอดความร่วมมือทางวิชาการและการวิจัยทางการแพทย์ ร่วมกับสถาบันการศึกษาชั้นนำ",
+                    date: "10 มีนาคม 2026",
+                    image_url: "news-thumb2.jpg",
+                    link_url: "#"
+                },
+                {
+                    type: "normal",
+                    category: "กิจกรรมสถาบัน",
+                    title: "โครงการซ้อมแผนเผชิญเหตุและปฐมพยาบาลชั้นสูงสำหรับนิสิตแพทย์ชั้นคลินิก",
+                    date: "12 มีนาคม 2026",
+                    image_url: "news-1.jpg",
+                    link_url: "#"
+                },
+                {
+                    type: "normal",
+                    category: "ข่าววิชาการ/การศึกษา",
+                    title: "การบรรยายพิเศษเรื่องนวัตกรรมทางการแพทย์และการบริการสาธารณสุขยุคดิจิทัล",
+                    date: "5 มีนาคม 2026",
+                    image_url: "news-2.jpg",
+                    link_url: "#"
+                },
+                {
+                    type: "normal",
+                    category: "ประกาศ/รับสมัคร",
+                    title: "ขอเชิญเข้าร่วมงานประชุมวิชาการประจำปี ศูนย์แพทยศาสตร์ศึกษาชั้นคลินิก",
+                    date: "20 กุมภาพันธ์ 2026",
+                    image_url: "news-3.jpg",
+                    link_url: "#"
+                }
+            ];
+        }
+
+        window.addEventListener('DOMContentLoaded', fetchNewsData);
+    </script>
 </body>
 </html>
